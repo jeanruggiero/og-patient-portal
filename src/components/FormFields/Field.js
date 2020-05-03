@@ -5,11 +5,13 @@ import Box from "@material-ui/core/Box";
 function Field(props) {
 
   const defaultWidth = 150;
-  const fieldWidth = props.width !== undefined ? props.width : defaultWidth;
+  const fieldWidth = props.width ? props.width : defaultWidth;
 
-  // const handleChange = (event) => {
-  //   props.onChange(event.target.value)
-  // };
+  const handleChange = (event) => {
+    if (props.onChange) {
+      props.onChange(event.target.value)
+    }
+  };
 
   return (
     <Box pr={2} component="span">
@@ -20,7 +22,7 @@ function Field(props) {
             shrink: true,
         }}
         label={props.label}
-        //onChange={handleChange}
+        onChange={handleChange}
         style={{width: fieldWidth,
                 paddingBottom: 30}}
       />

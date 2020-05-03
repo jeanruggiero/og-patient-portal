@@ -14,13 +14,14 @@ import Banner from "./components/Banner";
 import ogTheme from "./styles";
 import IntakeFormHeader from "./components/IntakeFormHeader";
 import IntakeFormIdentifyingInfo from "./components/IntakeFormIdentifyingInfo";
+import FormPanel from "./components/FormPanel";
 
 function App() {
 
   return (
     <ThemeProvider theme={ogTheme}>
       <Banner/>
-      <IntakeFormIdentifyingInfo/>
+      <FormPanel/>
     </ThemeProvider>
 
 

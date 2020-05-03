@@ -13,6 +13,10 @@ function DateField(props) {
     setSelectedDate(date);
   };
 
+  const handleAccept = (date) => {
+    props.onChange(date.toISOString().substring(0, 10));
+  };
+
 
   return (
     <Box pr={2} component="span">
@@ -30,6 +34,7 @@ function DateField(props) {
               label={props.label}
               value={selectedDate}
               onChange={handleDateChange}
+              onAccept={handleAccept}
               InputLabelProps={{
                 shrink: true,
               }}
