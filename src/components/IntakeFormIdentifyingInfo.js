@@ -27,20 +27,6 @@ function IntakeFormIdentifyingInfo(props) {
       return;
     }
 
-    // let params = [];
-    // Object.keys(state).forEach(field => {
-    //   params.push(field + "=" + state[field]);
-    // });
-
-    // const url = "http://127.0.0.1:8000/patients/id?" + params.join("&");
-    //
-    // console.log(url);
-    //
-    // fetch(url,
-    //   {mode: 'cors'})
-    //   .then((response) => response.text())
-    //   .then((text) => props.onSubmit(text));
-
     const url = "http://127.0.0.1:8000/patients/id";
 
     axios.get(url, {
@@ -59,6 +45,11 @@ function IntakeFormIdentifyingInfo(props) {
     setState({...state, [event.target.name]: event.target.value});
   };
 
+  const form = {
+    onChange: handleChange,
+    valid: formValid
+  };
+
   return (
     <Container>
       <IntakeFormHeader subheader="Getting Started"/>
@@ -69,19 +60,31 @@ function IntakeFormIdentifyingInfo(props) {
         <FormSection label="Personal Information">
             <FormInstruction>Please enter your legal name as it appears on your insurance card.</FormInstruction>
 
-            <Field label="First Name" name="firstName" onChange={handleChange}
-                   error={!formValid && !state['firstName']} required/>
+            <Field label="First Name"
+                   name="firstName"
+                   form={form}
+                   required/>
 
-            <Field label="MI" name="MI" onChange={handleChange} width={45}/>
+            <Field label="MI"
+                   name="MI"
+                   form={form}
+                   width={45}/>
 
-            <Field label="Last Name" name="lastName" onChange={handleChange}
-                   error={!formValid && !state['lastName']} required/>
+            <Field label="Last Name"
+                   name="lastName"
+                   form={form}
+                   required/>
 
-            <DateField label="Date of Birth" name="DOB" onChange={handleChange}
-                       error={!formValid && !state['DOB']} required/>
+            <DateField label="Date of Birth"
+                       name="DOB"
+                       form={form}
+                       required/>
 
-            <Field label="Email" name="email" onChange={handleChange} width={300}
-                   error={!formValid && !state['email']} required/>
+            <Field label="Email"
+                   name="email"
+                   form={form}
+                   width={300}
+                   required/>
 
         </FormSection>
 

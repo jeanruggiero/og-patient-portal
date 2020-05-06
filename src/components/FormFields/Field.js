@@ -7,16 +7,28 @@ function Field(props) {
   const defaultWidth = 150;
   const fieldWidth = props.width ? props.width : defaultWidth;
 
+  const [value, setValue] = useState();
+
+  let error = false;
+
+  if (props.form && !props.form.valid && !value && props.required) {
+    console.log("field error");
+    error = true;
+  }
+
   const handleChange = (event) => {
-    if (props.onChange) {
-      console.log('change');
-      props.onChange(event);
+
+    setValue(event.target.value);
+
+    if (props.form && props.form.onChange) {
+      props.form.onChange({target: {name: props.name, value: event.target.value}});
     }
   };
 
   return (
     <Box pr={2} component="span">
       <TextField
+        value={value}
         variant="outlined"
         InputLabelProps={{
             shrink: true,
@@ -24,7 +36,8 @@ function Field(props) {
         onChange={handleChange}
         style={{width: fieldWidth,
                 paddingBottom: 15}}
-        helperText={props.error ? "This field is required" : null}
+        error={error}
+        //helperText={error ? "This field is required" : null}
         {...props}
       />
     </Box>

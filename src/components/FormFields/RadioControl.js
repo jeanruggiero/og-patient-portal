@@ -7,7 +7,14 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Box from "@material-ui/core/Box";
 
 function RadioControl(props) {
-  const [value, setValue] = useState(props.value);
+  //const [value, setValue] = useState(props.value);
+  const [value, setValue] = useState(null);
+
+  let error = false;
+
+  if (props.form && !props.form.valid && !value && props.required) {
+    error = true;
+  }
 
   let controlStyle = {display: 'block'};
   let radioStyle = {marginBottom: -5, marginTop: -5, marginRight: -4};
@@ -16,7 +23,7 @@ function RadioControl(props) {
     controlStyle = {display: 'inline-flex'};
   }
 
-  let required = props.required !== undefined;
+  let required = props.required;
   let row = true;
 
   if (props.column !== undefined) {
@@ -38,28 +45,37 @@ function RadioControl(props) {
     if (props.onChange) {
       props.onChange({target: {name: event.target.name, value: event.target.value}});
     }
+
+    if (props.form && props.form.onChange) {
+      props.form.onChange({target: {name: event.target.name, value: event.target.value}});
+    }
   };
 
   const options = [];
 
-  for (const value of props.options) {
+  for (const option of props.options) {
     options.push(
-      <FormControlLabel value={value.toLowerCase()} control={
-        <Radio style={radioStyle} />
-      } label={value} style={{paddingBottom: 0}} />
+      <FormControlLabel value={option.toLowerCase()} control={
+        <Radio style={radioStyle} required={required} />
+      } label={option} style={{paddingBottom: 0}} />
     );
   }
 
   return (
     <Box pb={2} style={controlStyle}>
-      <FormControl component="fieldset" required={required} style={controlStyle}>
+      <FormControl component="fieldset"
+                   name={props.name}
+                   required={required}
+                   style={controlStyle}
+                   error={error}>
+
         <Box component="span" mb={1}>
           <FormLabel component="legend" style={{fontWeight: 500}}>
             {props.label}
           </FormLabel>
         </Box>
 
-        <RadioGroup row={row} name={props.name} value={value} onChange={handleChange}>
+        <RadioGroup row={row} value={value} onChange={handleChange} name={props.name} required={required}>
           {options}
         </RadioGroup>
 

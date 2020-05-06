@@ -44,6 +44,11 @@ function HipaaForm(props) {
       })
   };
 
+  const form = {
+    onChange: setAcknowledged,
+    valid: formValid
+  };
+
   return (
     <Box maxWidth={800}>
 
@@ -62,7 +67,10 @@ function HipaaForm(props) {
             By entering your name below, you acknowledge that you have received and reviewed the Notice of Privacy Practices.
           </FormInstruction>
 
-          <Field label="Full Name" width={300} onChange={setAcknowledged} error={!acknowledged && !formValid} required/>
+          <Field label="Full Name"
+                 width={300}
+                 form={form}
+                 required/>
         </FormSection>
 
         <SubmitButton onClick={handleSubmit} />

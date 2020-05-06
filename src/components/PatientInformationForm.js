@@ -3,25 +3,17 @@ import IntakeFormHeader from "./IntakeFormHeader";
 import FormSection from "./FormSection";
 import RadioControl from "./FormFields/RadioControl";
 import Field from "./FormFields/Field";
-import FormLabel from "@material-ui/core/FormLabel";
-import Typography from "@material-ui/core/Typography";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
 import FormDescription from "./FormDescription";
-import Button from "@material-ui/core/Button";
 import DateField from "./FormFields/DateField";
 import FormInstruction from "./FormFields/FormInstruction";
-import FormControl from "@material-ui/core/FormControl";
 import SubmitButton from "./FormFields/SubmitButton";
 import MedicalBenefitsReleaseCheckbox from "./FormFields/MedicalBenefitsReleaseCheckbox";
 
 function PatientInformationForm(props) {
 
-  const [state, setState] = useState({
-    relationshipToInsured: null,
-  });
-
+  const [state, setState] = useState({});
+  const [formValid, setFormValid] = useState(true);
 
   console.log(state);
 
@@ -29,9 +21,23 @@ function PatientInformationForm(props) {
     setState({...state, [event.target.name]: event.target.value});
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!event.currentTarget.form.checkValidity() || !state["medicalBenefitsRelease"]) {
+      setFormValid(false);
+      return;
+    }
+
+    console.log("form valid");
 
   };
+
+  const form = {
+    valid: formValid,
+    onChange: handleChange
+  };
+
 
   let insuredFields = null;
 
@@ -46,10 +52,26 @@ function PatientInformationForm(props) {
 
           <FormInstruction>Primary insured individual's information:</FormInstruction>
 
-          <Field label="First Name" name="primaryInsuredFirstName" onChange={handleChange} required/>
-          <Field label="Last Name" name="primaryInsuredLastName" onChange={handleChange}  required/>
-          <DateField label="Date of Birth" name="primaryInsuredDOB" onChange={handleChange}  required/>
-          <RadioControl options={["Male", "Female"]} display="inline" name="primaryInsuredGender" onChange={handleChange}  column required/>
+          <Field label="First Name"
+                 name="primaryInsuredFirstName"
+                 form={form}
+                 required />
+
+          <Field label="Last Name"
+                 name="primaryInsuredLastName"
+                 form={form}
+                 required />
+
+          <DateField label="Date of Birth"
+                     name="primaryInsuredDOB"
+                     form={form}
+                     required/>
+
+          <RadioControl options={["Male", "Female"]}
+                        label="Gender"
+                        name="primaryInsuredGender"
+                        form={form}
+                        required />
         </Box>
       )
   }
@@ -64,24 +86,24 @@ function PatientInformationForm(props) {
           <Box>
             <Field label="Street Address"
                    name="streetAddress"
-                   onChange={handleChange}
+                   form={form}
                    width={250}
                    required/>
 
             <Field label="City"
                    name="city"
-                   onChange={handleChange}
+                   form={form}
                    required/>
 
             <Field label="State"
                    name="state"
-                   onChange={handleChange}
+                   form={form}
                    width={50}
                    required/>
 
             <Field label="Zip"
                    name="zip"
-                   onChange={handleChange}
+                   form={form}
                    width={90}
                    required/>
           </Box>
@@ -89,67 +111,86 @@ function PatientInformationForm(props) {
           <Box>
             <Field label="Cell Phone"
                    name="cellPhone"
-                   onChange={handleChange}
+                   form={form}
                    width={130}
                    required/>
 
-            <Field label="Home Phone" name="homePhone" onChange={handleChange} width={130}/>
-            <Field label="Work Phone" name="workPhone" onChange={handleChange} width={130}/>
+            <Field label="Home Phone"
+                   name="homePhone"
+                   form={form}
+                   width={130}/>
+
+            <Field label="Work Phone"
+                   name="workPhone"
+                   form={form}
+                   width={130}/>
+
           </Box>
         </FormSection>
 
         <FormSection label="Personal Information">
-          <Field label="Preferred Name" name="preferredName" onChange={handleChange} />
-          <Field label="Spouse or Parent(s) Name" name="spouseParentName" onChange={handleChange} width={200}/>
-          <Field label="Person Responsible for Account" name="personResponsible" onChange={handleChange} width={200}/>
+          <Field label="Preferred Name"
+                 name="preferredName"
+                 form={form} />
+
+          <Field label="Spouse or Parent(s) Name"
+                 name="spouseParentName"
+                 form={form}
+                 width={200}/>
+
+          <Field label="Person Responsible for Account"
+                 name="personResponsible"
+                 form={form}
+                 width={200}/>
 
           <RadioControl label="Gender"
                         name="gender"
                         options={["Male", "Female", "Other"]}
-                        onChange={handleChange} />
+                        form={form} />
 
           <RadioControl label="Employment Status"
                         name="employmentStatus"
                         options={["Employed", "Unemployed", "Full Time Student", "Part Time Student"]}
-                        onChange={handleChange}/>
+                        form={form}/>
 
           <RadioControl label="Marital Status"
                         name="maritalStatus"
                         options={["Single", "Married", "Other"]}
-                        onChange={handleChange} />
+                        form={form} />
 
           <RadioControl label="Race"
                         name="race"
                         options={["American Indian or Alaska Native", "Asian", "Black or African American", "Hispanic or Latino", "Native Hawaiian or Pacific Islander", "White", "Other"]}
-                        onChange={handleChange} />
+                        form={form} />
+
           <RadioControl label="Ethnicity"
                         name="ethnicity"
                         options={["Hispanic or Latino", "Not Hispanic or Latino"]}
-                        onChange={handleChange} />
+                        form={form} />
 
           <RadioControl label="Preferred Language"
                         name="preferredLanguage"
                         options={["English", "Spanish", "Other"]}
-                        onChange={handleChange} />
+                        form={form} />
         </FormSection>
 
         <FormSection label="Emergency Contact Information">
           <Field label="Emergency Contact Name"
                  name="emergencyContactName"
                  width={250}
-                 onChange={handleChange}/>
+                 form={form}/>
 
           <Field label="Emergency Phone"
                  name="emergencyPhone"
                  width={140}
-                 onChange={handleChange} />
+                 form={form} />
         </FormSection>
 
         <FormSection label="Insurance Information">
           <Field label="Insurance Company"
                  name="insuranceCompany"
                  width={300}
-                 onChange={handleChange}
+                 form={form}
                  required/>
 
           <FormInstruction>Address of insurance company:</FormInstruction>
@@ -157,43 +198,56 @@ function PatientInformationForm(props) {
           <Field label="Street Address"
                  name="insuranceCompanyStreetAddress"
                  width={250}
-                 onChange={handleChange}
+                 form={form}
                  required />
 
           <Field label="City"
                  name="insuranceCompanyCity"
-                 onChange={handleChange}
+                 form={form}
                  required />
 
           <Field label="State"
                  name="insuranceCompanyState"
                  width={50}
-                 onChange={handleChange}
+                 form={form}
                  required />
 
           <Field label="Zip"
                  name="insuranceCompanyZip"
                  width={90}
-                 onChange={handleChange}
+                 form={form}
                  required />
 
           <RadioControl label="Patient's relationship to insured individual"
                         name="relationshipToInsured"
-                        value={state.relationshipToInsured}
                         options={["Self", "Spouse", "Child", "Other"]}
-                        onChange={handleChange}
+                        form={form}
                         required />
 
           {insuredFields}
 
-          <Field label="Insurance ID Number" width={180} required/>
-          <Field label="Group Number" width={100}/>
-          <Field label="Insured Individual's Employer" width={250} required/>
+          <Field label="Insurance ID Number"
+                 name="InsuranceIdNumber"
+                 form={form}
+                 width={180}
+                 required />
+
+          <Field label="Group Number"
+                 name="insuranceGroupNumber"
+                 form={form}
+                 width={100} />
+
+          <Field label="Insured Individual's Employer"
+                 name="insuredEmployer"
+                 form={form}
+                 width={250}
+                 required/>
 
           <MedicalBenefitsReleaseCheckbox onChange={handleChange} />
         </FormSection>
 
         <SubmitButton onClick={handleSubmit}/>
+
       </form>
     </Box>
   )

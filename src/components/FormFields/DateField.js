@@ -10,6 +10,13 @@ function DateField(props) {
 
   const [selectedDate, setSelectedDate] = useState(null);
 
+  let error = false;
+
+  if (props.form && !props.form.valid && !selectedDate && props.required) {
+    console.log("date field error");
+    error = true;
+  }
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -19,12 +26,12 @@ function DateField(props) {
     const d = date.getFullYear() + '-' + (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1) +
       '-' + (date.getDate() < 10 ? '0' : '') + date.getDate();
 
-    if (props.onChange) {
-      props.onChange({target: {name: props.name, value: d}});
+    if (props.form && props.form.onChange) {
+      props.form.onChange({target: {name: props.name, value: d}});
     }
   };
 
-  if (props.error) {
+  if (error) {
     return (
       <Box pr={2} component="span">
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -43,8 +50,8 @@ function DateField(props) {
                 style={{width: 167,
                         paddingBottom: 15}}
                 error
-                helperText="This field is required"
                 label={props.label}
+                required={props.required}
           />
         </MuiPickersUtilsProvider>
       </Box>
@@ -69,6 +76,7 @@ function DateField(props) {
               style={{width: 167,
                       paddingBottom: 15}}
               label={props.label}
+              required={props.required}
         />
       </MuiPickersUtilsProvider>
     </Box>
