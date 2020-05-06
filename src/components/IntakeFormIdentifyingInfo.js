@@ -7,85 +7,78 @@ import Button from "@material-ui/core/Button";
 
 import DateField from "./FormFields/DateField";
 import Field from "./FormFields/Field";
+import FormDescription from "./FormDescription";
+import FormSection from "./FormSection";
+import CovidUpdate from "./CovidUpdate";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormInstruction from "./FormFields/FormInstruction";
+import SubmitButton from "./FormFields/SubmitButton";
 
 
 function IntakeFormIdentifyingInfo(props) {
 
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [mi, setMi] = useState();
-  const [dob, setDob] = useState();
-  const [email, setEmail] = useState();
+  const [state, setState] = useState({});
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
 
-    const url = "http://127.0.0.1:8000/patients/id?" +
-      "lastName=" + lastName +
-      "&firstName=" + firstName +
-      "&dob=" + dob +
-      "&email=" + email;
+    event.preventDefault();
 
-    fetch(url,
-      {mode: 'cors'})
-      .then((response) => response.text())
-      .then((text) => props.onSubmit(text));
+    if (!event.currentTarget.form.reportValidity()) {
+      return;
+    }
+
+
+    let params = [];
+    Object.keys(state).forEach(field => {
+      params.push(field + "=" + state[field]);
+    });
+
+    console.log(params);
+
+      // "lastName=" + state.lastName +
+      // "&firstName=" + firstName +
+      // "&dob=" + dob +
+      // "&email=" + email;
+    const url = "http://127.0.0.1:8000/patients/id?" + params.join("&");
+    console.log(url);
+    // if (mi) {
+    //   url += "&MI=" + mi;
+    // }
+
+    //
+    // fetch(url,
+    //   {mode: 'cors'})
+    //   .then((response) => response.text())
+    //   .then((text) => props.onSubmit(text));
+  };
+
+  const handleChange = (event) => {
+    console.log(event);
+    setState({...state, [event.target.name]: event.target.value});
   };
 
   return (
     <Container>
       <IntakeFormHeader subheader="Getting Started"/>
-      <Box maxWidth={800}>
-        <Typography>
-          <Box mb={1}>
-            Thank you for choosing Optometric Group for your eyecare needs. We are delighted to have you as a patient and appreciate the confidence you have placed in us. Please complete the following information before arriving for your appointment to help us enhance the safety of our community and comply with CDC regulations. If you have questions, please don’t hesitate to contact Westside Family Vision Center at 408-264-1555 or Saratoga Vision Center at (408) 370-7303.
-          </Box>
-        </Typography>
+      <FormDescription/>
+      <CovidUpdate/>
 
-        <Box mb={3}>
-          <Typography color="error" elementtype="span">
-            COVID-19 Update:
-          </Typography>
+      <form onSubmit={handleSubmit}>
+        <FormSection label="Personal Information">
+            <FormInstruction>Please enter your legal name as it appears on your insurance card.</FormInstruction>
 
-          <Typography elementtype="span">
-            Please contact Westside Family Vision Center at 408-264-1555 or Saratoga Vision Center at (408) 370-7303 prior to requesting an appointment if any of the following apply to you:
-            <ul>
-              <li>
-                You are currently experiencing any of the following symptoms: cough, fever, or any other viral symptoms
-              </li>
-              <li>
-                You have traveled outside of Santa Clara County in the past two weeks
-              </li>
-              <li>
-                You have been in contact with someone who has traveled outside of Santa Clara County in the past two weeks
-              </li>
-            </ul>
-            
-          </Typography>
-        </Box>
+            <Field label="First Name" name="firstName" onChange={handleChange} required/>
+            <Field label="MI" name="MI" onChange={handleChange} width={45}/>
+            <Field label="Last Name" name="lastName" onChange={handleChange} required/>
+            <DateField label="Date of Birth" name="dob" onChange={handleChange} required/>
+            <Field label="Email" name="email" onChange={handleChange} width={300} required/>
 
-        <Box>
-          <Box mb={2}>
-            <Typography>
-              Please enter your legal first and last name as it appears on your insurance card.
-            </Typography>
-          </Box>
+        </FormSection>
 
-          <Field label="First Name" onChange={setFirstName} required/>
-          <Field label="MI" onChange={setMi} width={45}/>
-          <Field label="Last Name" onChange={setLastName} required/>
-          <DateField label="Date of Birth" onChange={setDob} required/>
-          <Field label="Email" onChange={setEmail} width={300} required/>
-        </Box>
-
-        <Button variant="contained" color="primary" style={{float: "right"}} onClick={handleSubmit}>
-          Continue
-        </Button>
-      </Box>
-
-
+        <SubmitButton onClick={handleSubmit}/>
+      </form>
     </Container>
-    )
-
+  )
 }
 
 export default IntakeFormIdentifyingInfo;

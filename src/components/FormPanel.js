@@ -1,29 +1,48 @@
 import React, { useState } from "react";
 import IntakeFormIdentifyingInfo from "./IntakeFormIdentifyingInfo";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
+import HipaaForm from "./HipaaForm";
+import PatientInformationForm from "./PatientInformationForm";
+import {Box} from "@material-ui/core";
+import MedicalInformationForm from "./MedicalInformationForm";
+import FamilyMedicalHistoryForm from "./FamilyMedicalHistoryForm";
 
 
 function FormPanel() {
 
   const [gettingStartedSubmitted, setGettingStartedSubmitted] = useState(false);
+  const [hipaaSubmitted, setHipaaSubmitted] = useState(false);
   const [patientId, setPatientId] = useState();
 
-  if (!gettingStartedSubmitted) {
-    return <IntakeFormIdentifyingInfo onSubmit={(id) =>
-      {
-        setGettingStartedSubmitted(true);
-        setPatientId(id);
-      }
-    }/>;
+  let form = null;
 
-  } else {
-    return (
-      <Typography>
-        Submitted: {patientId}
-      </Typography>
-    )
+  if (!gettingStartedSubmitted) {
+    form = (
+      <IntakeFormIdentifyingInfo onSubmit={(id) =>
+        {
+          setGettingStartedSubmitted(true);
+          setPatientId(id);
+        }
+      }/>
+    );
+  } else if (!hipaaSubmitted) {
+    console.log(patientId);
+    form = <HipaaForm patientId={patientId}/>;
   }
+
+  // TODO
+  form = <IntakeFormIdentifyingInfo onSubmit={(id) =>
+        {
+          setGettingStartedSubmitted(true);
+          setPatientId(id);
+        }
+      }/>;
+
+  return (
+    <Box maxWidth={800} mx={3} mb={8}>
+      {form}
+    </Box>
+  )
 
 }
 

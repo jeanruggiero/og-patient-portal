@@ -5,6 +5,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import Box from "@material-ui/core/Box";
 
+
 function DateField(props) {
 
   const [selectedDate, setSelectedDate] = React.useState(null);
@@ -14,24 +15,19 @@ function DateField(props) {
   };
 
   const handleAccept = (date) => {
-    props.onChange(date.toISOString().substring(0, 10));
+    if (props.onChange) {
+      props.onChange({target: {name: props.name, value: date.toISOString().substring(0, 10)}});
+    }
   };
-
 
   return (
     <Box pr={2} component="span">
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
-              required={props.required}
               autoOk
-              //disableToolbar
-              //width={10}
               variant="inline"
               inputVariant="outlined"
               format="MM/dd/yyyy"
-              //margin="normal"
-              //id="date-picker-inline"
-              label={props.label}
               value={selectedDate}
               onChange={handleDateChange}
               onAccept={handleAccept}
@@ -39,12 +35,10 @@ function DateField(props) {
                 shrink: true,
               }}
               placeholder="MM/DD/YYYY"
-              //views={["year", "month", "date"]}
-              // KeyboardButtonProps={{
-              //   'aria-label': 'change date',
-              // }}
               style={{width: 167,
-                      paddingBottom: 30}}
+                      paddingBottom: 15}}
+              required={props.required}
+              label={props.label}
         />
       </MuiPickersUtilsProvider>
     </Box>
