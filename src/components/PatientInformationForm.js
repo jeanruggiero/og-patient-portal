@@ -11,126 +11,190 @@ import Box from "@material-ui/core/Box";
 import FormDescription from "./FormDescription";
 import Button from "@material-ui/core/Button";
 import DateField from "./FormFields/DateField";
+import FormInstruction from "./FormFields/FormInstruction";
+import FormControl from "@material-ui/core/FormControl";
+import SubmitButton from "./FormFields/SubmitButton";
+import MedicalBenefitsReleaseCheckbox from "./FormFields/MedicalBenefitsReleaseCheckbox";
 
-function PatientInformationForm() {
+function PatientInformationForm(props) {
 
   const [state, setState] = useState({
-    release: false,
     relationshipToInsured: null,
   });
 
-  const [insuredFields, setInsuredFields] = useState();
+
+  console.log(state);
 
   const handleChange = (event) => {
-    setState({...state, [event.target.name]: event.target.checked});
+    setState({...state, [event.target.name]: event.target.value});
   };
 
   const handleSubmit = () => {
 
   };
 
-  const handleInsuredChange = (event) => {
-    console.log("insured changed");
-    console.log(event.target.value);
+  let insuredFields = null;
 
-    switch (event.target.value) {
-      case null:
-      case "self":
-        setInsuredFields(null);
-        break;
-      default:
-        setInsuredFields(
-          <Box>
-            <Box mb={1.5}>
-              <FormLabel style={{fontWeight: 500}}>Primary insured individual's information</FormLabel>
-            </Box>
-            <Box>
-              <Field label="First Name" required/>
-              <Field label="Last Name" required/>
-              <DateField label="Date of Birth" required/>
-              <RadioControl options={["Male", "Female"]} display="inline" column required/>
-            </Box>
-          </Box>
-        )
-    }
-  };
+  switch (state.relationshipToInsured) {
+    case undefined:
+    case null:
+    case "self":
+      break;
+    default:
+      insuredFields = (
+        <Box>
+
+          <FormInstruction>Primary insured individual's information:</FormInstruction>
+
+          <Field label="First Name" name="primaryInsuredFirstName" onChange={handleChange} required/>
+          <Field label="Last Name" name="primaryInsuredLastName" onChange={handleChange}  required/>
+          <DateField label="Date of Birth" name="primaryInsuredDOB" onChange={handleChange}  required/>
+          <RadioControl options={["Male", "Female"]} display="inline" name="primaryInsuredGender" onChange={handleChange}  column required/>
+        </Box>
+      )
+  }
 
   return (
-    <Box maxWidth={800} mx={3} mb={8}>
+    <Box>
       <IntakeFormHeader subheader="Patient Information"/>
       <FormDescription/>
 
-      <FormSection label="Contact Information">
-        <Box>
-          <Field label="Street Address" width={250} required/>
-          <Field label="City" required/>
-          <Field label="State" width={50} required/>
-          <Field label="Zip" width={90} required/>
-        </Box>
+      <form>
+        <FormSection label="Contact Information">
+          <Box>
+            <Field label="Street Address"
+                   name="streetAddress"
+                   onChange={handleChange}
+                   width={250}
+                   required/>
 
-        <Box>
-          <Field label="Cell Phone" width={130} required/>
-          <Field label="Home Phone" width={130}/>
-          <Field label="Work Phone" width={130}/>
-        </Box>
-      </FormSection>
+            <Field label="City"
+                   name="city"
+                   onChange={handleChange}
+                   required/>
 
-      <FormSection label="Personal Information">
-        <Field label="Preferred Name" />
-        <Field label="Spouse or Parent(s) Name" width={200} />
-        <Field label="Person Responsible for Account" width={200} />
+            <Field label="State"
+                   name="state"
+                   onChange={handleChange}
+                   width={50}
+                   required/>
 
-        <RadioControl label="Gender" options={["Male", "Female", "Other"]}/>
-        <RadioControl label="Employment Status" options={["Employed", "Unemployed", "Full Time Student", "Part Time Student"]}/>
-        <RadioControl label="Marital Status" options={["Single", "Married", "Other"]} />
-        <RadioControl label="Race" options={["American Indian or Alaska Native", "Asian", "Black or African American", "Hispanic or Latino", "Native Hawaiian or Pacific Islander", "White", "Other"]} />
-        <RadioControl label="Ethnicity" options={["Hispanic or Latino", "Not Hispanic or Latino"]} />
-        <RadioControl label="Preferred Language" options={["English", "Spanish", "Other"]} />
-      </FormSection>
+            <Field label="Zip"
+                   name="zip"
+                   onChange={handleChange}
+                   width={90}
+                   required/>
+          </Box>
 
-      <FormSection label="Emergency Contact Information">
-        <Field label="Emergency Contact Name" width={250} />
-        <Field label="Emergency Phone" width={140} />
-      </FormSection>
+          <Box>
+            <Field label="Cell Phone"
+                   name="cellPhone"
+                   onChange={handleChange}
+                   width={130}
+                   required/>
 
-      <FormSection label="Insurance Information">
-        <Field label="Insurance Company" width={300} required />
+            <Field label="Home Phone" name="homePhone" onChange={handleChange} width={130}/>
+            <Field label="Work Phone" name="workPhone" onChange={handleChange} width={130}/>
+          </Box>
+        </FormSection>
 
-        <Box mb={1.5} mt={0}>
-          <FormLabel style={{fontWeight: 500}}>Address of insurance company:</FormLabel>
-        </Box>
-        <Field label="Street Address" width={250} required/>
-        <Field label="City" required/>
-        <Field label="State" width={50} required/>
-        <Field label="Zip" width={90} required/>
+        <FormSection label="Personal Information">
+          <Field label="Preferred Name" name="preferredName" onChange={handleChange} />
+          <Field label="Spouse or Parent(s) Name" name="spouseParentName" onChange={handleChange} width={200}/>
+          <Field label="Person Responsible for Account" name="personResponsible" onChange={handleChange} width={200}/>
 
-        <RadioControl label="Patient's relationship to Insured" value={state.relationshipToInsured} options={["Self", "Spouse", "Child", "Other"]} required onChange={handleInsuredChange} />
+          <RadioControl label="Gender"
+                        name="gender"
+                        options={["Male", "Female", "Other"]}
+                        onChange={handleChange} />
 
-        {insuredFields}
+          <RadioControl label="Employment Status"
+                        name="employmentStatus"
+                        options={["Employed", "Unemployed", "Full Time Student", "Part Time Student"]}
+                        onChange={handleChange}/>
 
-        {/*// TODO: add insured's info if relationship is not self*/}
+          <RadioControl label="Marital Status"
+                        name="maritalStatus"
+                        options={["Single", "Married", "Other"]}
+                        onChange={handleChange} />
 
-        <Field label="Insurance ID Number" width={180} required />
-        <Field label="Group Number" width={100} />
-        <Field label="Insured Individual's Employer" width={250} required />
+          <RadioControl label="Race"
+                        name="race"
+                        options={["American Indian or Alaska Native", "Asian", "Black or African American", "Hispanic or Latino", "Native Hawaiian or Pacific Islander", "White", "Other"]}
+                        onChange={handleChange} />
+          <RadioControl label="Ethnicity"
+                        name="ethnicity"
+                        options={["Hispanic or Latino", "Not Hispanic or Latino"]}
+                        onChange={handleChange} />
 
-        <Box mb={0.5} mt={0}>
-          <FormLabel style={{fontWeight: 500}} required>Assignment of Medical Benefits and Release Information</FormLabel>
-        </Box>
-        <Typography>
-          I understand that I am financially responsible for all charges whether or not paid by insurance. I understand that if insurance eligibility cannot be verified or the proper forms are not obtained, I will be responsible for all charges incurred for services received from this office. I hereby authorize the doctors to release all information necessary to secure payment. I furthermore understand that should collection efforts or legal action be required ro secure payment on my account I will be responsible for these additional fees as well. I request payment of insurance benefits be made directly to WFVC/SVC on my behalf for any services and materials furnished. This assignment shall remain in effect until revoked by me in writing.
-        </Typography>
+          <RadioControl label="Preferred Language"
+                        name="preferredLanguage"
+                        options={["English", "Spanish", "Other"]}
+                        onChange={handleChange} />
+        </FormSection>
 
-        <Box mb={1.5}>
-          <FormControlLabel control={<Checkbox checked={state.release} onChange={handleChange} name="release"/>}
-                            label="I have read and agree with the Assignment of Medical Benefits and Release Information"/>
-        </Box>
+        <FormSection label="Emergency Contact Information">
+          <Field label="Emergency Contact Name"
+                 name="emergencyContactName"
+                 width={250}
+                 onChange={handleChange}/>
 
-      </FormSection>
+          <Field label="Emergency Phone"
+                 name="emergencyPhone"
+                 width={140}
+                 onChange={handleChange} />
+        </FormSection>
 
-      <Button variant="contained" color="primary" style={{float: "right"}} onClick={handleSubmit}>
-        Continue
-      </Button>
+        <FormSection label="Insurance Information">
+          <Field label="Insurance Company"
+                 name="insuranceCompany"
+                 width={300}
+                 onChange={handleChange}
+                 required/>
+
+          <FormInstruction>Address of insurance company:</FormInstruction>
+
+          <Field label="Street Address"
+                 name="insuranceCompanyStreetAddress"
+                 width={250}
+                 onChange={handleChange}
+                 required />
+
+          <Field label="City"
+                 name="insuranceCompanyCity"
+                 onChange={handleChange}
+                 required />
+
+          <Field label="State"
+                 name="insuranceCompanyState"
+                 width={50}
+                 onChange={handleChange}
+                 required />
+
+          <Field label="Zip"
+                 name="insuranceCompanyZip"
+                 width={90}
+                 onChange={handleChange}
+                 required />
+
+          <RadioControl label="Patient's relationship to insured individual"
+                        name="relationshipToInsured"
+                        value={state.relationshipToInsured}
+                        options={["Self", "Spouse", "Child", "Other"]}
+                        onChange={handleChange}
+                        required />
+
+          {insuredFields}
+
+          <Field label="Insurance ID Number" width={180} required/>
+          <Field label="Group Number" width={100}/>
+          <Field label="Insured Individual's Employer" width={250} required/>
+
+          <MedicalBenefitsReleaseCheckbox onChange={handleChange} />
+        </FormSection>
+
+        <SubmitButton onClick={handleSubmit}/>
+      </form>
     </Box>
   )
 }

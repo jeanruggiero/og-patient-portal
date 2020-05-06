@@ -4,7 +4,7 @@ import Box from "@material-ui/core/Box";
 
 function CovidUpdate() {
   return (
-    <Box mb={3}>
+    <Box mb={4} mt={-3}>
       <Typography color="error" elementtype="span">
         COVID-19 Update:
       </Typography>

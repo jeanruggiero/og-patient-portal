@@ -4,61 +4,69 @@ import Button from "@material-ui/core/Button";
 
 import Pdf from '../static/Notice_of_Privacy_Practices.pdf'
 import Field from "./FormFields/Field";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import FormSection from "./FormSection";
 
-import Cookies from 'js-cookie'
+//import Cookies from 'js-cookie'
 import FormDescription from "./FormDescription";
+import FormInstruction from "./FormFields/FormInstruction";
+import SubmitButton from "./FormFields/SubmitButton";
+
+const axios = require('axios');
 
 function HipaaForm(props) {
 
-  //const patientId = props.patientId;
   const [acknowledged, setAcknowledged] = useState(false);
+  const [formValid, setFormValid] = useState(true);
 
-  const handleSubmit = () => {
-    if (!acknowledged) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!event.currentTarget.form.checkValidity()) {
+      setFormValid(false);
       return;
     }
 
     let url = "http://127.0.0.1:8000/patients/" + props.patientId + "/";
+    console.log(url);
 
-    fetch(url, {
-      mode: 'cors',
-      method: 'PUT',
-      headers: {'X-CSRFToken': Cookies.get('csrftoken'),
-                'Content-Type': 'application/json'},
-      credentials: 'include',
-      body: JSON.stringify({HipaaAcknowledgement: true})
-    }).then(response => console.log(response))
+    axios.post(url, {
+        HipaaAcknowledgement: true
+      },
+      {
+        xsrfHeaderName: 'X-CSRFToken',
+        xsrfCookieName: 'csrftoken',
+        withCredentials: true
+      }
+      )
+      .then(function (response) {
+        console.log(response);
+      })
   };
-
 
   return (
     <Box maxWidth={800}>
 
-        <IntakeFormHeader subheader="HIPAA Release"/>
-        <FormDescription/>
+      <IntakeFormHeader subheader="Notice of Privacy Practices"/>
+      <FormDescription/>
 
-        <FormSection label="HIPAA Acknowledgement">
-          <Box py={3}>
+      <form>
+        <FormSection label="Notice of Privacy Practices Acknowledgement">
+          <Box pb={2}>
             <Button variant="contained" color="primary" href={Pdf} target="_blank">
               View Form
             </Button>
           </Box>
 
-          <Box pb={2}>
-            <Typography>
-              By entering your name & date below, you acknowledge that you have received and reviewed the above HIPAA Release.
-            </Typography>
-          </Box>
+          <FormInstruction>
+            By entering your name below, you acknowledge that you have received and reviewed the Notice of Privacy Practices.
+          </FormInstruction>
 
-          <Field label="Full Name" width={250} onChange={setAcknowledged} required/>
-      </FormSection>
+          <Field label="Full Name" width={300} onChange={setAcknowledged} error={!acknowledged && !formValid} required/>
+        </FormSection>
 
-      <Button variant="contained" color="primary" style={{float: "right"}} onClick={handleSubmit}>
-        Continue
-      </Button>
+        <SubmitButton onClick={handleSubmit} />
+      </form>
 
     </Box>
   )

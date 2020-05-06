@@ -21,7 +21,7 @@ function FormInstruction(props) {
 
   return (
     <Box className={classes.root}>
-      <FormLabel className={classes.formLabel}>{props.children}</FormLabel>
+      <FormLabel className={classes.formLabel} required={props.required}>{props.children}</FormLabel>
     </Box>
   )
 }

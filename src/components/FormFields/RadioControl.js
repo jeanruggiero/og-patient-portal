@@ -33,26 +33,33 @@ function RadioControl(props) {
 
   const handleChange = (event) => {
     setValue(event.target.value);
+    console.log(event.target.value);
 
     if (props.onChange) {
-      props.onChange(event);
+      props.onChange({target: {name: event.target.name, value: event.target.value}});
     }
   };
 
   const options = [];
 
   for (const value of props.options) {
-    options.push(<FormControlLabel value={value.toLowerCase()} control={<Radio style={radioStyle} />} label={value} style={{paddingBottom: 0}} />);
+    options.push(
+      <FormControlLabel value={value.toLowerCase()} control={
+        <Radio style={radioStyle} />
+      } label={value} style={{paddingBottom: 0}} />
+    );
   }
 
   return (
     <Box pb={2} style={controlStyle}>
       <FormControl component="fieldset" required={required} style={controlStyle}>
         <Box component="span" mb={1}>
-          <FormLabel component="legend" style={{fontWeight: 500}} >{props.label}</FormLabel>
+          <FormLabel component="legend" style={{fontWeight: 500}}>
+            {props.label}
+          </FormLabel>
         </Box>
 
-        <RadioGroup row={row} aria-label={props.label} name={props.label} value={value} onChange={handleChange} >
+        <RadioGroup row={row} name={props.name} value={value} onChange={handleChange}>
           {options}
         </RadioGroup>
 

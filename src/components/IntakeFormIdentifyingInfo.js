@@ -1,59 +1,61 @@
 import React, { useState } from "react";
 import Container from "@material-ui/core/Container";
 import IntakeFormHeader from "./IntakeFormHeader";
-import Typography from "@material-ui/core/Typography";
-import Box from '@material-ui/core/Box'
-import Button from "@material-ui/core/Button";
 
 import DateField from "./FormFields/DateField";
 import Field from "./FormFields/Field";
 import FormDescription from "./FormDescription";
 import FormSection from "./FormSection";
 import CovidUpdate from "./CovidUpdate";
-import FormLabel from "@material-ui/core/FormLabel";
 import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
+import ErrorScreen from "./ErrorScreen";
 
+const axios = require('axios');
 
 function IntakeFormIdentifyingInfo(props) {
 
   const [state, setState] = useState({});
+  const [formValid, setFormValid] = useState(true);
 
   const handleSubmit = (event) => {
 
     event.preventDefault();
 
-    if (!event.currentTarget.form.reportValidity()) {
+    if (!event.currentTarget.form.checkValidity()) {
+      setFormValid(false);
       return;
     }
 
+    // let params = [];
+    // Object.keys(state).forEach(field => {
+    //   params.push(field + "=" + state[field]);
+    // });
 
-    let params = [];
-    Object.keys(state).forEach(field => {
-      params.push(field + "=" + state[field]);
-    });
-
-    console.log(params);
-
-      // "lastName=" + state.lastName +
-      // "&firstName=" + firstName +
-      // "&dob=" + dob +
-      // "&email=" + email;
-    const url = "http://127.0.0.1:8000/patients/id?" + params.join("&");
-    console.log(url);
-    // if (mi) {
-    //   url += "&MI=" + mi;
-    // }
-
+    // const url = "http://127.0.0.1:8000/patients/id?" + params.join("&");
+    //
+    // console.log(url);
     //
     // fetch(url,
     //   {mode: 'cors'})
     //   .then((response) => response.text())
     //   .then((text) => props.onSubmit(text));
+
+    const url = "http://127.0.0.1:8000/patients/id";
+
+    axios.get(url, {
+        params: state
+      })
+      .then(function (response) {
+        props.onSubmit(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        return <ErrorScreen/>;
+      })
   };
 
   const handleChange = (event) => {
-    console.log(event);
     setState({...state, [event.target.name]: event.target.value});
   };
 
@@ -67,15 +69,23 @@ function IntakeFormIdentifyingInfo(props) {
         <FormSection label="Personal Information">
             <FormInstruction>Please enter your legal name as it appears on your insurance card.</FormInstruction>
 
-            <Field label="First Name" name="firstName" onChange={handleChange} required/>
+            <Field label="First Name" name="firstName" onChange={handleChange}
+                   error={!formValid && !state['firstName']} required/>
+
             <Field label="MI" name="MI" onChange={handleChange} width={45}/>
-            <Field label="Last Name" name="lastName" onChange={handleChange} required/>
-            <DateField label="Date of Birth" name="dob" onChange={handleChange} required/>
-            <Field label="Email" name="email" onChange={handleChange} width={300} required/>
+
+            <Field label="Last Name" name="lastName" onChange={handleChange}
+                   error={!formValid && !state['lastName']} required/>
+
+            <DateField label="Date of Birth" name="DOB" onChange={handleChange}
+                       error={!formValid && !state['DOB']} required/>
+
+            <Field label="Email" name="email" onChange={handleChange} width={300}
+                   error={!formValid && !state['email']} required/>
 
         </FormSection>
 
-        <SubmitButton onClick={handleSubmit}/>
+        <SubmitButton onClick={handleSubmit} />
       </form>
     </Container>
   )
