@@ -38,8 +38,7 @@ function HipaaForm(props) {
         xsrfCookieName: 'csrftoken',
         withCredentials: true
       }
-      )
-      .then(function (response) {
+      ).then(function (response) {
         console.log(response);
       })
   };

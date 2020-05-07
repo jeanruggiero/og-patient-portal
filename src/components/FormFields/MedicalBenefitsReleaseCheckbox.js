@@ -10,11 +10,17 @@ function MedicalBenefitsReleaseCheckbox(props) {
 
   const [value, setValue] = useState(false);
 
+  let error = false;
+  if (props.form && !props.form.valid && !value) {
+    error = true;
+  }
+
+
   const handleChange = (event) => {
     setValue(event.target.checked);
 
-    if (props.onChange) {
-      props.onChange({
+    if (props.form.onChange) {
+      props.form.onChange({
         target: {
           name: "medicalBenefitsRelease",
           value: event.target.checked
@@ -24,7 +30,11 @@ function MedicalBenefitsReleaseCheckbox(props) {
   };
 
   return (
-    <FormControl component="fieldset" onChange={handleChange} required>
+    <FormControl component="fieldset"
+                 onChange={handleChange}
+                 error={error}
+                 required>
+
       <FormInstruction>Assignment of Medical Benefits and Release Information</FormInstruction>
 
       <Typography>
@@ -32,7 +42,7 @@ function MedicalBenefitsReleaseCheckbox(props) {
       </Typography>
 
       <Box mb={1.5}>
-        <FormControlLabel control={<Checkbox checked={value} />}
+        <FormControlLabel control={<Checkbox checked={value} required />}
                           label="I have read and agree with the Assignment of Medical Benefits and Release Information"/>
       </Box>
     </FormControl>

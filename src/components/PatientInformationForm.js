@@ -10,6 +10,8 @@ import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
 import MedicalBenefitsReleaseCheckbox from "./FormFields/MedicalBenefitsReleaseCheckbox";
 
+const axios = require('axios');
+
 function PatientInformationForm(props) {
 
   const [state, setState] = useState({});
@@ -31,13 +33,22 @@ function PatientInformationForm(props) {
 
     console.log("form valid");
 
+    const url = "http://127.0.0.1:8000/patients/" + props.patientId + "/";
+
+    axios.post(url, state, {
+        xsrfHeaderName: 'X-CSRFToken',
+        xsrfCookieName: 'csrftoken',
+        withCredentials: true
+      }
+    ).then(function (response) {
+      console.log(response);
+    })
   };
 
   const form = {
     valid: formValid,
     onChange: handleChange
   };
-
 
   let insuredFields = null;
 
@@ -85,24 +96,24 @@ function PatientInformationForm(props) {
         <FormSection label="Contact Information">
           <Box>
             <Field label="Street Address"
-                   name="streetAddress"
+                   name="addressStreet"
                    form={form}
                    width={250}
                    required/>
 
             <Field label="City"
-                   name="city"
+                   name="addressCity"
                    form={form}
                    required/>
 
             <Field label="State"
-                   name="state"
+                   name="addressState"
                    form={form}
                    width={50}
                    required/>
 
             <Field label="Zip"
-                   name="zip"
+                   name="addressZip"
                    form={form}
                    width={90}
                    required/>
@@ -243,7 +254,7 @@ function PatientInformationForm(props) {
                  width={250}
                  required/>
 
-          <MedicalBenefitsReleaseCheckbox onChange={handleChange} />
+          <MedicalBenefitsReleaseCheckbox form={form} />
         </FormSection>
 
         <SubmitButton onClick={handleSubmit}/>

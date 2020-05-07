@@ -38,7 +38,8 @@ function FormPanel() {
   //       }
   //     }/>;
   //form=<HipaaForm patientId="58a9c26e-10d5-4952-a25b-d11c3953e233"/>;
-  form = <PatientInformationForm patientId="58a9c26e-10d5-4952-a25b-d11c3953e233"/>;
+  // form = <PatientInformationForm patientId="58a9c26e-10d5-4952-a25b-d11c3953e233"/>;
+  form = <MedicalInformationForm patientId="58a9c26e-10d5-4952-a25b-d11c3953e233" />;
 
   return (
     <Box maxWidth={800} mx={3} mb={8}>

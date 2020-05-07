@@ -15,8 +15,12 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import YesNoField from "./FormFields/YesNoField";
+import FormInstruction from "./FormFields/FormInstruction";
+import SubmitButton from "./FormFields/SubmitButton";
 
 function MedicalInformationForm() {
+
+  const [state, setState] = useState({});
 
   const [pregnantField, setPregnantField] = useState();
   const [supplementField, setSupplementField] = useState();
@@ -30,188 +34,328 @@ function MedicalInformationForm() {
   const [contactsFields, setContactsFields] = useState([]);
   const [pastContactsFields, setPastContactsFields] = useState([]);
 
+  const handleSubmit = () => {
+    console.log(state);
+  };
+
 
   return (
     <Box>
       <IntakeFormHeader subheader="Medical Information"/>
       <FormDescription/>
 
-      <FormSection label="Current Symptoms & Conditions">
-        <Field label="Primary Reason for Appointment" width={700} required />
+      <form>
+        <FormSection label="Current Symptoms & Conditions">
+          <Field label="Primary Reason for Appointment"
+                 name="reasonForAppointment"
+                 width={700}
+                 required/>
 
-        <DetailSelectGroup label="Eye Symptoms & Conditions (Select all that apply)" options={
-          ["Glaucoma", "Cataract", "Macular Degeneration", "Retinal Detachment", "Color Blindness",
-            "Headaches", "Glare/Light Sensitivity", "Tired Eyes", "Amblyopia (Lazy Eye)",
-            "Burning", "Dryness", "Excess Tearing/Watering", "Eye Pain/Soreness",
-            "Foreign Body Sensation", "Infection of Eye/Lid", "Itching", "Mucous Discharge",
-            "Ptosis (Drooping Eyelid)", "Redness", "Sandy/Gritty Feeling", "Crossed Eyes",
-            "Blurred Vision (Distance)", "Blurred Vision (Near)", "Distorted Vision", "Double Vision",
-            "Floaters or Spots in Vision", "Fluctuating Vision", "Loss of Vision", "Loss of Side Vision",
-            "Sick While Reading in Car", "Vision Training/Patching"]
-          }
-        />
+          <DetailSelectGroup label="Eye Symptoms & Conditions (Select all that apply)"
+                             name="eyeSymptomsConditions"
+                             options={
+                               ["Glaucoma", "Cataract", "Macular Degeneration", "Retinal Detachment", "Color Blindness",
+                                 "Headaches", "Glare/Light Sensitivity", "Tired Eyes", "Amblyopia (Lazy Eye)",
+                                 "Burning", "Dryness", "Excess Tearing/Watering", "Eye Pain/Soreness",
+                                 "Foreign Body Sensation", "Infection of Eye/Lid", "Itching", "Mucous Discharge",
+                                 "Ptosis (Drooping Eyelid)", "Redness", "Sandy/Gritty Feeling", "Crossed Eyes",
+                                 "Blurred Vision (Distance)", "Blurred Vision (Near)", "Distorted Vision", "Double Vision",
+                                 "Floaters or Spots in Vision", "Fluctuating Vision", "Loss of Vision", "Loss of Side Vision",
+                                 "Sick While Reading in Car", "Vision Training/Patching"]
+                             }
+          />
 
-        <Field label="Other" width={500} />
-        <Field label="Other" width={500} />
-        <Field label="Other" width={500} />
+          <Field label="Other"
+                 name="otherEyeSymptomsConditions"
+                 width={500}/>
 
-        <SelectGroup label="General Symptoms (Select all that apply)" options={
-          ["Fever", "Weight Loss", "Other Constitutional Symptoms", "Ears, Nose, Throat, Sinus",
-            "Cardiovascular (Heart, vessels, etc.)", "Respiratory (Asthma, emphysema, etc.)",
-            "Gastrointestinal", "Genital, Kidney, Bladder, STDs",
-            "Muscles, Bones, Joints (Arthritis, etc.)", "Skin (Acne, warts, skin cancer, etc.)",
-            "Neurological (Multiple Sclerosis, etc.)",
-            "Psychiatric (Anxiety, depression, insomnia)",
-            "Endocrine (Diabetes, hypothyroid, etc.)",
-            "Blood/Lymph (cholesterol, anemia, etc.)",
-            "Allergic/Immunologic (Hay fever, lupus, etc.)"
 
-          ]}/>
+          <SelectGroup label="General Symptoms (Select all that apply)"
+                       name="generalSymptomsConditions"
+                       options={
+                         ["Fever", "Weight Loss", "Other Constitutional Symptoms", "Ears, Nose, Throat, Sinus",
+                           "Cardiovascular (Heart, vessels, etc.)", "Respiratory (Asthma, emphysema, etc.)",
+                           "Gastrointestinal", "Genital, Kidney, Bladder, STDs",
+                           "Muscles, Bones, Joints (Arthritis, etc.)", "Skin (Acne, warts, skin cancer, etc.)",
+                           "Neurological (Multiple Sclerosis, etc.)",
+                           "Psychiatric (Anxiety, depression, insomnia)",
+                           "Endocrine (Diabetes, hypothyroid, etc.)",
+                           "Blood/Lymph (cholesterol, anemia, etc.)",
+                           "Allergic/Immunologic (Hay fever, lupus, etc.)"
 
-      </FormSection>
+                         ]}/>
 
-      <FormSection label="General Health Information">
-        <DateField label="Date of Last Health Exam"/>
-        <DateField label="Date of Last Eye Exam"/>
-        <DateField label="Date of Last Dilation"/>
+        </FormSection>
 
-        <Box display="flex">
-          <Box component="span">
-            <FormLabel style={{paddingBottom: 12, paddingLeft: 5, display: 'block'}}>Height:</FormLabel>
-            <Field label="Feet" width={55} />
-            <Field label="Inches" width={55} />
+        <FormSection label="General Health Information">
+
+          <DateField label="Date of Last Health Exam"
+                     name="dateLastHealthExam"
+          />
+
+          <DateField label="Date of Last Eye Exam"
+                     name="dateLastEyeExam"
+          />
+
+          <DateField label="Date of Last Dilation"
+                     name="dateLastDilation"
+          />
+
+          <Box display="flex">
+            <Box component="span">
+              <FormInstruction>Height:</FormInstruction>
+
+              <Field label="Feet"
+                     name="heightFeet"
+                     width={55}/>
+
+              <Field label="Inches"
+                     name="heightInches"
+                     width={55}/>
+            </Box>
+
+            <Box component="span" pl={2}>
+              <FormInstruction>Weight:</FormInstruction>
+              <Field label="Pounds"
+                     name="weight"
+                     width={55}/>
+            </Box>
           </Box>
 
-          <Box component="span" pl={2}>
-            <FormLabel style={{paddingBottom: 12, paddingLeft: 5, display: 'block'}}>Weight:</FormLabel>
-            <Field label="Pounds" width={55} />
-          </Box>
-        </Box>
+          <RadioControl label="Are you pregnant or nursing?"
+                        name="pregnantNursing"
+                        options={["Pregnant", "Nursing"]}/>
 
-        <RadioControl label="Are you pregnant or nursing?" options={["Pregnant", "Nursing"]} />
+          {pregnantField}
 
-        {pregnantField}
+          <ListControl label="General Illness & Surgeries:"
+                       name="generalIllnessSurgeries"
+                       field={<Field label="Description" width={600}/>}
+          />
 
-        <ListControl label="General Ilness & Surgeries:" field={<Field label="Description" width={600} />} />
+          <ListControl label="Eye Surgeries & Injuries:"
+                       name="eyeSurgeriesInjuries"
+                       field={
+                         <Box>
+                           <Field label="Description" width={200}/>
+                           <DateField label="Date"/>
+                           <Field label="Surgeon"/>
+                         </Box>
+                       }
+          />
 
-        <ListControl label="Eye Surgeries & Injuries:" field={
+          <ListControl label="Current Medications:"
+                       name="currentMedications"
+                       field={
+                         <Box>
+                           <Field label="Medication" width={200}/>
+                           <Field label="Reason for Taking" width={400}/>
+                         </Box>
+                       }
+          />
+
+          <ListControl label="Current Eye Drops"
+                       name="currentEyeDrops"
+                       field={
+                         <Box>
+                           <Field label="Type/Brand" width={250}/>
+                           <Field label="How Often?" width={250}/>
+
+                           <FormControl component="fieldset">
+                             <FormGroup>
+                               <FormControlLabel control={<Checkbox/>}
+                                                 label="Left Eye"
+                                                 style={{marginBottom: -10, marginTop: -8}}
+                               />
+
+                               <FormControlLabel control={<Checkbox/>}
+                                                 label="Right Eye"
+                                                 style={{marginBottom: -10, marginTop: -8}}
+                               />
+                             </FormGroup>
+                           </FormControl>
+                         </Box>
+                       }
+          />
+
+          <ListControl label="Medication Allergies:"
+                       name="medicationAllergies"
+                       field={
+                         <Box>
+                           <Field label="Medication"
+                                  width={200}
+                           />
+
+                           <Field label="Symptoms of Reaction"
+                                  width={300}
+                           />
+                         </Box>
+                       }
+          />
+
+          <ListControl label="Other Allergies:"
+                       name="otherAllergies"
+                       field={
+                         <Box>
+                           <Field label="Allergic To" width={200}/>
+                           <Field label="Symptoms of Reaction" width={300}/>
+                         </Box>
+                       }
+          />
+
+          <YesNoField label="Do you use nutritional supplements?"
+                      name="nutritionalSupplements"
+                      required
+          />
+
+          {supplementField}
+
+          <YesNoField label="Are you following a special diet?"
+                      name="specialDiet"
+                      required
+          />
+
+          {dietField}
+
+        </FormSection>
+
+        <FormSection>
           <Box>
-            <Field label="Description" width={200} />
-            <DateField label="Date" />
-            <Field label="Surgeon" />
+            <Field label="Occupation"
+                   name="occupation"
+                   width={200}
+                   required
+            />
+
+            <Field label="Years"
+                   name="occupationYears"
+                   width={60}
+                   required
+            />
+
+            <Field label="Employer"
+                   name="employer"
+                   width={300}
+                   required
+            />
           </Box>
-        } />
 
-        <ListControl label="Current Medications:" field={
-          <Box>
-            <Field label="Medication" width={200} />
-            <Field label="Reason for Taking" width={400} />
-          </Box>
-        } />
+          <YesNoField label="Do you use a computer?"
+                      name="usesComputer"
+                      required
+          />
 
-        <ListControl label="Current Eye Drops" field={
-          <Box>
-            <Field label="Type/Brand" width={250} />
-            <Field label="How Often?" width={250} />
-            <FormControl component="fieldset">
-              <FormGroup>
-                <FormControlLabel control={<Checkbox />} label="Left Eye" style={{marginBottom: -10, marginTop: -8}} />
-                <FormControlLabel control={<Checkbox />} label="Right Eye" style={{marginBottom: -10, marginTop: -8}}/>
-              </FormGroup>
+          {computerFields}
 
-            </FormControl>
-          </Box>
-        }/>
+          <YesNoField label="Do you drive?"
+                      name="drives"
+                      required
+          />
 
-        <ListControl label="Medication Allergies:" field={
-          <Box>
-            <Field label="Medication" width={200}/>
-            <Field label="Symptoms of Reaction" width={300}/>
-          </Box>
-        }/>
+          {drivingFields}
 
-        <ListControl label="Other Allergies:" field={
-          <Box>
-            <Field label="Allergic To" width={200}/>
-            <Field label="Symptoms of Reaction" width={300}/>
-          </Box>
-        }/>
+          <YesNoField label="Do you exercise regularly?"
+                      name="exercisesRegularly"
+                      required
+          />
 
-        <YesNoField label="Do you use nutritional supplements?" required />
+          <Field label="Hobbies/Interests"
+                 name="hobbiesInterests"
+                 width={600}
+          />
 
-        {supplementField}
+          <RadioControl label="How often do you consume alcohol?"
+                        name="alcoholFrequency"
+                        options={["Never", "Occasionally", "1 drink per day", "2-3 drinks per day", "4+ drinks per day"]}
+                        required
+          />
 
-        <YesNoField label="Are you following a special diet?" required />
+          <YesNoField label="Do you use tobacco?"
+                      name="usesTobacco"
+                      required/>
 
-        {dietField}
+          {smokingFields}
 
-      </FormSection>
+          <YesNoField label="Do you use illegal drugs?"
+                      name="usesIllegalDrugs"
+                      required/>
 
-      <FormSection>
-        <Box>
-          <Field label="Occupation" width={200} required/>
-          <Field label="Years" width={60} required />
-          <Field label="Employer" width={300} required />
-        </Box>
+        </FormSection>
 
-        <YesNoField label="Do you use a computer?" required />
+        <FormSection label="Vision Problems">
 
-        {computerFields}
+          <YesNoField label="Do you have glare problems?"
+                      name="glareProblems"
+                      required
+          />
 
-        <YesNoField label="Do you drive?" required />
+          <YesNoField label="Do you have problems with night vision?"
+                      name="nightVisionProblems"
+                      required
+          />
 
-        {drivingFields}
+        </FormSection>
 
-        <YesNoField label="Do you exercise regularly?" required/>
+        <FormSection label="Vision Correction">
 
-        <Field label="Hobbies/Interests" width={600}/>
+          <SelectGroup label="Have you had any of the following vision correction procedures? (Select all that apply)"
+                       name="visionCorrectionProcedures"
+                       options={["RK", "PRK", "LASIK", "Other"]}
+          />
 
-        <RadioControl label="How often do you consume alcohol?"
-                      options={["Never", "Occasionally", "1 drink per day", "2-3 drinks per day", "4+ drinks per day"]}
-                      required />
+          <YesNoField label="Are you interested in learning about the latest advancements in LASIK vision correction?"
+                      name="interestedLasik"
+                      required
+          />
 
-        <YesNoField label="Do you smoke?" required/>
+        </FormSection>
 
-        {smokingFields}
+        <FormSection label="Eyewear">
 
-        <YesNoField label="Do you use illegal drugs?" required />
+          <YesNoField label="Do you currently wear glasses?"
+                      name="wearsGlasses"
+                      required
+          />
 
-      </FormSection>
+          {glassesFields}
 
-      <FormSection label="Vision Problems">
-        <YesNoField label="Do you have glare problems?" required/>
-        <YesNoField label="Do you have problems with night vision?" required/>
-      </FormSection>
+          <YesNoField label="Have you worn glasses in the past?"
+                      name="woreGlassesPast"
+                      required
+          />
 
-      <FormSection label="Vision Correction">
-        <SelectGroup label="Have you had any of the following vision correction procedures? (Select all that apply)"
-                     options={["RK", "PRK", "LASIK", "Other"]} />
+          {pastGlassesFields}
 
-        <YesNoField label="Are you interested in learning about the latest advancements in LASIK vision correction?" required />
-      </FormSection>
+          <YesNoField label="Do you wear sunglasses?"
+                      name="wearsSunglasses"
+                      required
+          />
 
-      <FormSection label="Eyewear">
-        <YesNoField label="Do you currently wear glasses?" required/>
-        {glassesFields}
+          {sunglassesFields}
 
-        <YesNoField label="Have you worn glasses in the past?" required/>
-        {pastGlassesFields}
+        </FormSection>
 
-        <YesNoField label="Do you wear sunglasses?" required />
-        {sunglassesFields}
+        <FormSection label="Contact Lenses">
+          <YesNoField label="Do you currently wear contact lenses?"
+                      name="wearsContacts"
+                      required
+          />
 
-      </FormSection>
+          {contactsFields}
 
-      <FormSection label="Contact Lenses">
-        <YesNoField label="Do you currently wear contact lenses?" required/>
-        {contactsFields}
+          <YesNoField label="Have you worn contact lenses in the past?"
+                      name="woreContactsPast"
+                      required
+          />
 
-        <YesNoField label="Have you worn contact lenses in the past?" required />
-        {pastContactsFields}
-      </FormSection>
+          {pastContactsFields}
+
+        </FormSection>
+
+        <SubmitButton onSubmit={handleSubmit} />
+      </form>
     </Box>
   )
-
 }
 
 export default MedicalInformationForm;
