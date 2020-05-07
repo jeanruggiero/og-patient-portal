@@ -5,10 +5,11 @@ import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(() => ({
     root: {
-      paddingBottom: 12
+      paddingBottom: 12,
+      marginTop: 5
     },
     formLabel: {
-      paddingLeft: 2,
+      //paddingLeft: 2,
       fontSize: '0.9rem',
       fontWeight: 500
     }

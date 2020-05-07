@@ -7,7 +7,7 @@ function Field(props) {
   const defaultWidth = 150;
   const fieldWidth = props.width ? props.width : defaultWidth;
 
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(null);
 
   let error = false;
 
@@ -25,8 +25,17 @@ function Field(props) {
     }
   };
 
+  const style = {
+    paddingBottom: 15,
+    paddingRight: 12
+  };
+
+  if (props.width) {
+    style.width = props.width;
+  }
+
   return (
-    <Box pr={2} component="span">
+
       <TextField
         value={value}
         variant="outlined"
@@ -34,13 +43,12 @@ function Field(props) {
             shrink: true,
         }}
         onChange={handleChange}
-        style={{width: fieldWidth,
-                paddingBottom: 15}}
+        style={style}
         error={error}
         //helperText={error ? "This field is required" : null}
         {...props}
       />
-    </Box>
+
   )
 }
 

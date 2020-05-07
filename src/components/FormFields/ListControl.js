@@ -5,12 +5,70 @@ import Field from "./Field";
 import Button from "@material-ui/core/Button";
 import Icon from '@material-ui/core/Icon'
 
+function isIterable(obj) {
+  // checks for null and undefined
+  if (obj == null) {
+    return false;
+  }
+  return typeof obj[Symbol.iterator] === 'function';
+}
+
+
 function ListControl(props) {
 
-  const [fields, setFields] = useState([props.field]);
+  const [state, setState] = useState({});
+
+  const handleChange = (event, index) => {
+    let value = event.target.value;
+    setState({...state, [index]: {...state[index],
+      [event.target.name]: value}
+    });
+
+    const s = {...state, [index]: {...state[index],
+      [event.target.name]: value}
+    };
+
+    let values = [];
+
+    Object.keys(s).forEach(key => {
+      if (s[key]) {
+        values.push(s[key])
+      }
+    });
+
+    if (props.form && props.form.onChange) {
+      props.form.onChange({target:
+          {
+            name: props.name,
+            value: values
+          }});
+    }
+  };
+
+  let fields = [];
+
+  const [fieldCount, setFieldCount] = useState(1);
+
+  // Inject some props into child fields
+  for (let i = 0; i < fieldCount; i++) {
+    if (isIterable(props.children)) {
+      for (const child of props.children) {
+        fields.push(React.cloneElement(child, {
+            form: {onChange: (event) => handleChange(event, i)},
+          }
+        ));
+      }
+    } else {
+      fields.push(React.cloneElement(props.children, {
+          form: {onChange: (event) => handleChange(event, i)},
+        }
+      ));
+    }
+  }
 
   const handleClick = () => {
-    setFields(fields.concat([props.field]));
+    // Increase number of child fields when 'ADD MORE' is clicked
+    setFieldCount(fieldCount + 1);
   };
 
   return (

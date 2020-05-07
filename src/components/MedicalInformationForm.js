@@ -17,6 +17,7 @@ import YesNoField from "./FormFields/YesNoField";
 import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
 import CheckBoxControl from "./FormFields/CheckBoxControl";
+import Typography from "@material-ui/core/Typography";
 
 function MedicalInformationForm() {
 
@@ -34,10 +35,34 @@ function MedicalInformationForm() {
     onChange: handleChange
   };
 
-  const pregnantField = !state['pregnantNursing'] ? null : (
+
+  const handleSubmit = (event) => {
+    console.log("handling submit");
+    console.log(state);
+
+    event.preventDefault();
+
+    if (!event.currentTarget.form.checkValidity()) {
+      setFormValid(false);
+      return;
+    }
+
+    console.log("form valid");
+  };
+
+  const pregnantField = !state['pregnant'] ? null : (
     <Field label="Comments/Details"
            name="pregnantDetails"
            form={form}
+           fullWidth
+    />
+  );
+
+  const nursingField = !state['nursing'] ? null : (
+    <Field label="Comments/Details"
+           name="nursingDetails"
+           form={form}
+           fullWidth
     />
   );
 
@@ -45,6 +70,7 @@ function MedicalInformationForm() {
     <Field label="Please list supplements"
            name="supplementDetails"
            form={form}
+           fullWidth
     />
   );
 
@@ -52,6 +78,7 @@ function MedicalInformationForm() {
     <Field label="Diet"
            name="dietDetails"
            form={form}
+           width={300}
     />
   );
 
@@ -60,12 +87,14 @@ function MedicalInformationForm() {
       <Field label="Hours per Day"
              name="computerTime"
              form={form}
+             width={100}
              required
       />
 
       <Field label="Distance from Screen"
              name="distanceFromScreen"
              form={form}
+             width={120}
              required
       />
     </Box>
@@ -76,6 +105,7 @@ function MedicalInformationForm() {
       <Field label="Miles per Day"
              name="drivingDistance"
              form={form}
+             width={120}
              required
       />
 
@@ -165,6 +195,7 @@ function MedicalInformationForm() {
   const troubleGlassesPastFields = !state['troubleGlassesPast'] ? null : (
     <Field label="Please Explain"
            name="troubleGlassesPastDetails"
+           fullWidth
            form={form}
     />
   );
@@ -181,45 +212,48 @@ function MedicalInformationForm() {
       <Field label="Since"
              name="contactsSince"
              form={form}
+             width={100}
              required
       />
 
       <Field label="Type of Contact Lenses"
              name="typeContacts"
              form={form}
+             width={300}
              required
       />
 
       <Field label="Brand of Contact Lenses"
              name="brandContacts"
              form={form}
+             width={300}
              required
       />
 
-      <FormInstruction>How often do you wear your contact lenses?</FormInstruction>
+      <FormInstruction>Contact Lens Wearing Time</FormInstruction>
 
-      <Box>
-        <Field label="Hours/Day"
-               name="contactsHoursPerDay"
-               form={form}
-               required
-        />
+      <Field label="Hours/Day"
+             name="contactsHoursPerDay"
+             form={form}
+             width={80}
+             required
+      />
 
-        <Field label="Days/Week"
-               name="contactsDaysPerWeek"
-               form={form}
-               required
-        />
+      <Field label="Days/Week"
+             name="contactsDaysPerWeek"
+             form={form}
+             width={80}
+             required
+      />
 
-        <Field label="Today's wearing time (hours)"
-               name="todayWearingTime"
-               form={form}
-               required
-        />
-      </Box>
+      <Field label="Today (hrs)"
+             name="todayWearingTime"
+             form={form}
+             width={80}
+             required
+      />
 
-      <FormInstruction>How long do you wear your contact lenses before replacing them?</FormInstruction>
-      <Field label="Days"
+      <Field label="Replacement Schedule"
              name="contactsReplacementDays"
              form={form}
              required
@@ -227,52 +261,64 @@ function MedicalInformationForm() {
 
       <FormInstruction>Please rate the following on a scale from 1 (POOR) to 10 (EXCELLENT):</FormInstruction>
 
-      <Box>
-        <Box component="span">
-          <FormInstruction>Lens Comfort</FormInstruction>
+      <Box display="flex" mt={-1}>
+        <Box display="inline-block" pr={2}>
+          <Box pb={1.2}>
+            <Typography style={{fontWeight: 500}}>Lens Comfort</Typography>
+          </Box>
 
           <Field label="Left"
                  name="lensComfortLeft"
                  form={form}
+                 width={55}
                  required
           />
 
           <Field label="Right"
                  name="lensComfortRight"
                  form={form}
+                 width={55}
                  required
           />
 
         </Box>
 
-        <Box component="span">
-          <FormInstruction>Distance Vision</FormInstruction>
+        <Box display="inline-block" pr={2}>
+          <Box pb={1.2}>
+            <Typography style={{fontWeight: 500}}>Distance Vision</Typography>
+          </Box>
 
           <Field label="Left"
                  name="distanceVisionLeft"
                  form={form}
+                 width={55}
                  required
           />
 
           <Field label="Right"
                  name="distanceVisionRight"
                  form={form}
+                 width={55}
                  required
           />
         </Box>
 
-        <Box component="span">
-          <FormInstruction>Near Vision</FormInstruction>
+        <Box display="inline-block" pr={2}>
+          <Box pb={1.2}>
+            <Typography style={{fontWeight: 500}}>Near Vision</Typography>
+          </Box>
 
           <Field label="Left"
                  name="nearVisionLeft"
                  form={form}
+                 width={55}
                  required
           />
 
           <Field label="Right"
                  name="nearVisionRight"
                  form={form}
+                 width={55}
                  required
           />
         </Box>
@@ -282,16 +328,19 @@ function MedicalInformationForm() {
 
       <Field label="Visual Symptoms"
              name="contactsVisualSymptoms"
+             fullWidth
              form={form}
       />
 
       <Field label="Comfort Symptoms"
              name="contactsComfortSymptoms"
+             fullWidth
              form={form}
       />
 
       <Field label="Other Symptoms"
              name="contactsOtherSymptoms"
+             fullWidth
              form={form}
       />
 
@@ -300,36 +349,42 @@ function MedicalInformationForm() {
       <Field label="Cleaner"
              name="contactsCleaner"
              form={form}
+             width={200}
              required
       />
 
       <Field label="Rinse"
              name="contactsRinse"
              form={form}
+             width={200}
              required
       />
 
       <Field label="Disinfectant"
              name="contactsDisinfectant"
              form={form}
+             width={200}
              required
       />
 
       <Field label="Enzyme"
              name="contactsEnzyme"
              form={form}
+             width={200}
              required
       />
 
       <Field label="Drops"
              name="contactsDrops"
              form={form}
+             width={200}
              required
       />
 
       <Field label="Other"
              name="contactsSolutionOther"
              form={form}
+             width={200}
              required
       />
     </Box>
@@ -339,23 +394,12 @@ function MedicalInformationForm() {
     <Field label="Reason for Stopping"
            name="reasonStoppingContacts"
            form={form}
+           width={500}
            required
     />
   );
 
 
-  const handleSubmit = (event) => {
-    //console.log(state);
-
-    event.preventDefault();
-
-    if (!event.currentTarget.form.checkValidity()) {
-      setFormValid(false);
-      return;
-    }
-
-    console.log("form valid");
-  };
 
 
   return (
@@ -368,7 +412,7 @@ function MedicalInformationForm() {
           <Field label="Primary Reason for Appointment"
                  name="reasonForAppointment"
                  form={form}
-                 width={700}
+                 fullWidth
                  required/>
 
           <DetailSelectGroup label="Eye Symptoms & Conditions (Select all that apply)"
@@ -389,7 +433,7 @@ function MedicalInformationForm() {
           <Field label="Other"
                  name="otherEyeSymptomsConditions"
                  form={form}
-                 width={500}/>
+                 width={400}/>
 
 
           <SelectGroup label="General Symptoms (Select all that apply)"
@@ -452,94 +496,125 @@ function MedicalInformationForm() {
             </Box>
           </Box>
 
-          <RadioControl label="Are you pregnant or nursing?"
-                        name="pregnantNursing"
-                        options={["Pregnant", "Nursing"]}
+          <YesNoField label="Are you pregnant?"
+                        name="pregnant"
                         form={form}
           />
 
           {pregnantField}
 
+          <YesNoField label="Are you nursing?"
+                      name="nursing"
+                      form={form}
+          />
+
+          {nursingField}
+
           <ListControl label="General Illness & Surgeries:"
                        name="generalIllnessSurgeries"
-                       form={form}
-                       field={<Field label="Description" width={600}/>}
-          />
+                       form={form}>
+
+            <Field label="Description"
+                   name="description"
+                   fullWidth/>
+
+          </ListControl>
 
           <ListControl label="Eye Surgeries & Injuries:"
                        name="eyeSurgeriesInjuries"
-                       form={form}
-                       field={
-                         <Box>
-                           <Field label="Description" width={200}/>
-                           <DateField label="Date"/>
-                           <Field label="Surgeon"/>
-                         </Box>
-                       }
-          />
+                       form={form}>
+
+             <Field label="Description"
+                    name="description"
+                    width={200}/>
+
+             <DateField label="Date"
+                        name="date"
+             />
+
+             <Field label="Surgeon"
+                    name="surgeon"
+             />
+
+          </ListControl>
 
           <ListControl label="Current Medications:"
                        name="currentMedications"
-                       form={form}
-                       field={
-                         <Box>
-                           <Field label="Medication" width={200}/>
-                           <Field label="Reason for Taking" width={400}/>
-                         </Box>
-                       }
-          />
+                       form={form}>
+
+            <Field label="Medication"
+                   name="medication"
+                   width={200}
+            />
+
+            <Field label="Reason for Taking"
+                   name="reason"
+                   width={400}
+            />
+          </ListControl>
 
           <ListControl label="Current Eye Drops"
                        name="currentEyeDrops"
-                       form={form}
-                       field={
-                         <Box>
-                           <Field label="Type/Brand" width={250}/>
-                           <Field label="How Often?" width={250}/>
+                       form={form}>
 
-                           <FormControl component="fieldset">
-                             <FormGroup>
-                               <FormControlLabel control={<Checkbox/>}
-                                                 label="Left Eye"
-                                                 style={{marginBottom: -10, marginTop: -8}}
-                               />
+            <Field label="Type/Brand"
+                   name="typeBrand"
+                   width={250}
+            />
 
-                               <FormControlLabel control={<Checkbox/>}
-                                                 label="Right Eye"
-                                                 style={{marginBottom: -10, marginTop: -8}}
-                               />
-                             </FormGroup>
-                           </FormControl>
-                         </Box>
-                       }
-          />
+            <Field label="How Often?"
+                   name="frequency"
+                   width={250}
+            />
+
+            <FormControl component="fieldset"
+                         name="eye"
+            >
+              <FormGroup>
+               <FormControlLabel control={<Checkbox/>}
+                                 label="Left Eye"
+                                 style={{marginBottom: -10, marginTop: -8}}
+               />
+
+               <FormControlLabel control={<Checkbox/>}
+                                 label="Right Eye"
+                                 style={{marginBottom: -10, marginTop: -8}}
+               />
+              </FormGroup>
+            </FormControl>
+          </ListControl>
 
           <ListControl label="Medication Allergies:"
                        name="medicationAllergies"
-                       form={form}
-                       field={
-                         <Box>
-                           <Field label="Medication"
-                                  width={200}
-                           />
+                       form={form}>
 
-                           <Field label="Symptoms of Reaction"
-                                  width={300}
-                           />
-                         </Box>
-                       }
-          />
+            <Field label="Medication"
+                   name="medication"
+                   width={200}
+            />
+
+            <Field label="Symptoms of Reaction"
+                   name="symptoms"
+                   width={300}
+            />
+
+          </ListControl>
 
           <ListControl label="Other Allergies:"
                        name="otherAllergies"
                        form={form}
-                       field={
-                         <Box>
-                           <Field label="Allergic To" width={200}/>
-                           <Field label="Symptoms of Reaction" width={300}/>
-                         </Box>
-                       }
-          />
+          >
+            <Field label="Allergic To"
+                   name="allergy"
+                   width={200}
+            />
+
+            <Field label="Symptoms of Reaction"
+                   name="symptoms"
+                   width={300}
+            />
+
+          </ListControl>
 
           <YesNoField label="Do you use nutritional supplements?"
                       name="nutritionalSupplements"
@@ -608,7 +683,7 @@ function MedicalInformationForm() {
           <Field label="Hobbies/Interests"
                  name="hobbiesInterests"
                  form={form}
-                 width={600}
+                 fullWidth
           />
 
           <RadioControl label="How often do you consume alcohol?"
@@ -711,7 +786,7 @@ function MedicalInformationForm() {
 
         </FormSection>
 
-        <SubmitButton onSubmit={handleSubmit} />
+        <SubmitButton onClick={handleSubmit} />
       </form>
     </Box>
   )
