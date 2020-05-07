@@ -55,7 +55,7 @@ function RadioControl(props) {
 
   for (const option of props.options) {
     options.push(
-      <FormControlLabel value={option.toLowerCase()} control={
+      <FormControlLabel value={option} control={
         <Radio style={radioStyle} required={required} />
       } label={option} style={{paddingBottom: 0}} />
     );
