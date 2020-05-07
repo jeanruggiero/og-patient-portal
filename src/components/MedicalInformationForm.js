@@ -7,7 +7,6 @@ import Field from "./FormFields/Field";
 import SelectGroup from "./FormFields/SelectGroup";
 import DetailSelectGroup from "./FormFields/DetailSelectGroup";
 import DateField from "./FormFields/DateField";
-import FormLabel from "@material-ui/core/FormLabel";
 import RadioControl from "./FormFields/RadioControl";
 import ListControl from "./FormFields/ListControl";
 import FormControl from "@material-ui/core/FormControl";
@@ -17,25 +16,163 @@ import Checkbox from "@material-ui/core/Checkbox";
 import YesNoField from "./FormFields/YesNoField";
 import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
+import CheckBoxControl from "./FormFields/CheckBoxControl";
 
 function MedicalInformationForm() {
 
   const [state, setState] = useState({});
+  const [formValid, setFormValid] = useState(true);
 
-  const [pregnantField, setPregnantField] = useState();
-  const [supplementField, setSupplementField] = useState();
-  const [dietField, setDietField] = useState();
-  const [computerFields, setComputerFields] = useState([]);
-  const [drivingFields, setDrivingFields] = useState([]);
-  const [smokingFields, setSmokingFields] = useState([]);
-  const [glassesFields, setGlassesFields] = useState([]);
-  const [pastGlassesFields, setPastGlassesFields] = useState([]);
-  const [sunglassesFields, setSunglassesFields] = useState([]);
-  const [contactsFields, setContactsFields] = useState([]);
-  const [pastContactsFields, setPastContactsFields] = useState([]);
+  const handleChange = (event) => {
+    setState({...state, [event.target.name]: event.target.value});
+  };
 
-  const handleSubmit = () => {
+  const form = {
+    valid: formValid,
+    onChange: handleChange
+  };
+
+  const pregnantField = !state['pregnantNursing'] ? null : (
+    <Field label="Comments/Details"
+           name="pregnantDetails"
+           form={form}
+    />
+  );
+
+  const supplementField = !state['nutritionalSupplements'] ? null : (
+    <Field label="Please list supplements"
+           name="supplementDetails"
+           form={form}
+    />
+  );
+
+  const dietField = !state['specialDiet'] ? null : (
+    <Field label="diet"
+           name="dietDetails"
+           form={form}
+    />
+  );
+
+  const computerFields = !state['usesComputer'] ? null : (
+    <Box>
+      <Field label="Hours per Day"
+             name="computerTime"
+             form={form}
+             required
+      />
+
+      <Field label="Distance from Screen"
+             name="distanceFromScreen"
+             form={form}
+             required
+      />
+    </Box>
+  );
+
+  const drivingFields = !state['drives'] ? null : (
+    <Box>
+      <Field label="Miles per Day"
+             name="drivingDistance"
+             form={form}
+             required
+      />
+
+      <YesNoField label="Do you have visual difficulty while driving?"
+                  name="visualDifficultyDriving"
+                  form={form}
+                  required
+      />
+
+
+
+    </Box>
+  );
+
+  const tobaccoFields = !state['usesTobacco'] ? null : (
+    <Box>
+      <CheckBoxControl label="How do you use tobacco?"
+                       name="tobaccoUseMethods"
+                       options={["Smoking", "Chewing"]}
+                       form={form}
+                       required
+      />
+
+      <RadioControl label="How often do you use tobacco?"
+                    name="tobaccoFrequency"
+                    options={["Occasionally", "Half pack per day","1 pack per day", "1+ packs per day"]}
+                    form={form}
+                    required
+      />
+
+      <YesNoField label="Have you participated in tobacco use cessation intervention/counseling?"
+                  name="tobaccoCounseling"
+                  form={form}
+                  required
+      />
+    </Box>
+  );
+
+    // const [glassesFields, setGlassesFields] = useState([]);
+  // const [pastGlassesFields, setPastGlassesFields] = useState([]);
+  // const [sunglassesFields, setSunglassesFields] = useState([]);
+  // const [contactsFields, setContactsFields] = useState([]);
+  // const [pastContactsFields, setPastContactsFields] = useState([]);
+
+  const glassesFields = !state['wearsGlasses'] ? null : (
+    <Box>
+      <Field label="Since"
+             name="glassesSince"
+             form={form}
+             required
+      />
+
+      <RadioControl label="How often do you wear glasses?"
+                    name="glassesFrequency"
+                    options={["Full Time", "Part Time"]}
+                    form={form}
+                    required
+      />
+
+      <RadioControl label="In what situations do you wear glasses?"
+                    name="glassesSituations"
+                    options={["Seeing near", "Seeing far"]}
+                    form={form}
+                    required
+      />
+
+      <SelectGroup label="Which type(s) of glasses do you own? (Select all that apply)"
+                   name="glassesTypes"
+                   options={["Single Vision", "Bifocals", "Trifocals", "Back-up Glasses", "Safety Glasses", "Sports Glasses", "Progressive", "Computer"]}
+                   form={form}
+      />
+
+      <CheckBoxControl label="What special eyewear needs do you have?"
+                       name="specialEyewearNeeds"
+                       options={[
+                         "Computer (special prescriptions, special anti-glare tints or coatings)",
+                         "Occupational (mechanics, plumbers, pilots)",
+                         "Safety Glasses (gardening, woodworking, welding)",
+                         "Sports/Hobbies (racquet sports, motorcycle)",
+                         "Music",
+                         "Other"
+                       ]}
+                       form={form}
+
+      />
+    </Box>
+  );
+
+
+
+  const handleSubmit = (event) => {
     console.log(state);
+
+    if (!event.currentTarget.form.checkValidity()) {
+      setFormValid(false);
+      return;
+    }
+
+    console.log("form valid");
   };
 
 
@@ -274,7 +411,7 @@ function MedicalInformationForm() {
                       name="usesTobacco"
                       required/>
 
-          {smokingFields}
+          {tobaccoFields}
 
           <YesNoField label="Do you use illegal drugs?"
                       name="usesIllegalDrugs"

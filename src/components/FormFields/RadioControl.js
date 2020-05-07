@@ -7,7 +7,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Box from "@material-ui/core/Box";
 
 function RadioControl(props) {
-  //const [value, setValue] = useState(props.value);
+
   const [value, setValue] = useState(null);
 
   let error = false;
