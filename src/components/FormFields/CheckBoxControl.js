@@ -10,11 +10,14 @@ function CheckBoxControl (props) {
 
   let temp = {};
 
+
   for (const option of props.options) {
     temp[option] = false;
   }
 
   const [state, setState] = useState(temp);
+
+  console.log(state);
 
   let value = [];
 
@@ -31,12 +34,15 @@ function CheckBoxControl (props) {
   }
 
   const handleChange = (event) => {
-    setState({...state, [event.target.name]: event.target.value});
+
+    console.log("handling checkbox change");
+    setState({...state, [event.target.value]: event.target.checked});
 
     let value = [];
+    const s = {...state, [event.target.value]: event.target.checked};
 
-    Object.keys(state).forEach(key => {
-      if (state[key]) {
+    Object.keys(s).forEach(key => {
+      if (s[key]) {
         value.push(key);
       }
     });
@@ -57,21 +63,38 @@ function CheckBoxControl (props) {
     fields.push(
       <FormControlLabel value={option}
                         label={option}
-                        control={<Checkbox />}
+                        onChange={handleChange}
+                        control={<Checkbox style={{
+                          marginTop: -8,
+                          marginBottom: -8
+                        }} />}
 
       />);
 
   }
 
+  const label = !props.label ? null : (
+    <FormLabel component="legend"
+               style={
+                 {fontWeight: 500,
+                   paddingBottom: 10}
+               }>
+
+      {props.label}
+
+    </FormLabel>
+  );
+
 
   return (
-    <Box pb={2}>
+    <Box pb={2} display="inline-block">
       <FormControl component="fieldset"
                    name={props.name}
                    required={props.required}
                    error={error}
       >
-      <FormLabel component="legend" style={{fontWeight: 500}}>{props.label}</FormLabel>
+
+        {label}
 
         <FormGroup>
           {fields}

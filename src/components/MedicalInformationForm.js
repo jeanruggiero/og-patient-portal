@@ -567,21 +567,10 @@ function MedicalInformationForm() {
                    width={250}
             />
 
-            <FormControl component="fieldset"
-                         name="eye"
-            >
-              <FormGroup>
-               <FormControlLabel control={<Checkbox/>}
-                                 label="Left Eye"
-                                 style={{marginBottom: -10, marginTop: -8}}
-               />
+            <CheckBoxControl name="eye"
+                             options={["Left eye", "Right eye"]}
+            />
 
-               <FormControlLabel control={<Checkbox/>}
-                                 label="Right Eye"
-                                 style={{marginBottom: -10, marginTop: -8}}
-               />
-              </FormGroup>
-            </FormControl>
           </ListControl>
 
           <ListControl label="Medication Allergies:"
