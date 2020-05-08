@@ -59,7 +59,7 @@ function MedicalInformationForm(props) {
       props.onSubmit();
     });
 
-    //props.onSubmit();
+    props.onSubmit();
   };
 
   const pregnantField = !state['pregnant'] ? null : (

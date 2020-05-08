@@ -56,7 +56,7 @@ function FamilyMedicalHistoryForm(props) {
       props.onSubmit();
     });
 
-    //props.onSubmit();
+    props.onSubmit();
   };
 
   let fields = [];

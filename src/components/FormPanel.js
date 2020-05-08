@@ -30,13 +30,13 @@ function FormPanel() {
         patientId: id
       }
     }).then (function (response) {
-      console.log(response);
-      setFormId(response.data);
-      setCurrentForm("hipaa");
+      // console.log(response);
+      // setFormId(response.data);
+      // setCurrentForm("hipaa");
     });
 
-    // setFormId('1');
-    // setCurrentForm("hipaa");
+    setFormId('1');
+    setCurrentForm("hipaa");
   };
 
   const onHipaaSubmit = () => {
