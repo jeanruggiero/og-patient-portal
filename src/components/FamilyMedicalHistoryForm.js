@@ -42,21 +42,21 @@ function FamilyMedicalHistoryForm(props) {
 
     const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
 
-    // axios.post(url,
-    //   {
-    //     familyMedicalHistory: state
-    //   },
-    //   {
-    //     xsrfHeaderName: 'X-CSRFToken',
-    //     xsrfCookieName: 'csrftoken',
-    //     withCredentials: true
-    //   }
-    // ).then(function (response) {
-    //   console.log(response);
-    //   props.onSubmit();
-    // });
+    axios.put(url,
+      {
+        familyMedicalHistory: state
+      },
+      {
+        xsrfHeaderName: 'X-CSRFToken',
+        xsrfCookieName: 'csrftoken',
+        withCredentials: true
+      }
+    ).then(function (response) {
+      console.log(response);
+      props.onSubmit();
+    });
 
-    props.onSubmit();
+    //props.onSubmit();
   };
 
   let fields = [];

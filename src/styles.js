@@ -47,13 +47,13 @@ let ogTheme = createMuiTheme({
       fontWeight: 400,
       letterSpacing: -0.2,
       //lineHeight: 1.6,
-      fontSize: '0.8rem',
+      fontSize: '0.9rem',
       color: grey[800]
     },
     body2: {
       //letterSpacing: 0.25,
       fontWeight: 400,
-      fontSize: '0.8rem'
+      fontSize: '0.9rem'
     },
     subtitle1: {
       fontWeight: 600,

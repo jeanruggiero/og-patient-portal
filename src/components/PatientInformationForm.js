@@ -31,17 +31,17 @@ function PatientInformationForm(props) {
 
     const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
 
-    // axios.post(url, state, {
-    //     xsrfHeaderName: 'X-CSRFToken',
-    //     xsrfCookieName: 'csrftoken',
-    //     withCredentials: true
-    //   }
-    // ).then(function (response) {
-    //   console.log(response);
-    //   props.onSubmit();
-    // })
+    axios.put(url, state, {
+        xsrfHeaderName: 'X-CSRFToken',
+        xsrfCookieName: 'csrftoken',
+        withCredentials: true
+      }
+    ).then(function (response) {
+      console.log(response);
+      props.onSubmit();
+    });
 
-    props.onSubmit();
+    //props.onSubmit();
   };
 
   const form = {
@@ -77,7 +77,7 @@ function PatientInformationForm(props) {
                      form={form}
                      required/>
 
-          <RadioControl options={["Male", "Female"]}
+          <RadioControl options={["Male", "Female", "Other"]}
                         label="Gender"
                         name="primaryInsuredGender"
                         form={form}
@@ -108,7 +108,7 @@ function PatientInformationForm(props) {
             <Field label="State"
                    name="addressState"
                    form={form}
-                   width={50}
+                   width={60}
                    required/>
 
             <Field label="Zip"
