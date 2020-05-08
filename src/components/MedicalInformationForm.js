@@ -106,7 +106,7 @@ function MedicalInformationForm(props) {
       <Field label="Distance from Screen"
              name="distanceFromScreen"
              form={form}
-             width={120}
+             width={140}
              required
       />
     </Box>

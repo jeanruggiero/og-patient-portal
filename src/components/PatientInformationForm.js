@@ -218,7 +218,7 @@ function PatientInformationForm(props) {
 
           <Field label="State"
                  name="insuranceCompanyState"
-                 width={50}
+                 width={60}
                  form={form}
                  required />
 
