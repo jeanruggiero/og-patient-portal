@@ -28,19 +28,18 @@ function HipaaForm(props) {
     }
 
     let url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
-    console.log(url);
 
-    axios.post(url, {
-        HipaaAcknowledgement: true
-      },
-      {
-        xsrfHeaderName: 'X-CSRFToken',
-        xsrfCookieName: 'csrftoken',
-        withCredentials: true
-      }
-      ).then(function (response) {
-        console.log(response);
-      });
+    // axios.post(url, {
+    //     HipaaAcknowledgement: true
+    //   },
+    //   {
+    //     xsrfHeaderName: 'X-CSRFToken',
+    //     xsrfCookieName: 'csrftoken',
+    //     withCredentials: true
+    //   }
+    //   ).then(function (response) {
+    //     console.log(response);
+    //   });
 
     props.onSubmit();
 

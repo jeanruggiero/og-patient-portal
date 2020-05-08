@@ -27,7 +27,6 @@ function MedicalInformationForm(props) {
   const [state, setState] = useState({});
   const [formValid, setFormValid] = useState(true);
 
-  console.log(state);
 
   const handleChange = (event) => {
     setState({...state, [event.target.name]: event.target.value});
@@ -40,8 +39,6 @@ function MedicalInformationForm(props) {
 
 
   const handleSubmit = (event) => {
-    console.log("handling submit");
-    console.log(state);
 
     event.preventDefault();
 
@@ -50,19 +47,19 @@ function MedicalInformationForm(props) {
       return;
     }
 
-    console.log("form valid");
-
     const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
 
-    axios.post(url, state, {
-        xsrfHeaderName: 'X-CSRFToken',
-        xsrfCookieName: 'csrftoken',
-        withCredentials: true
-      }
-    ).then(function (response) {
-      console.log(response);
-      props.onSubmit();
-    })
+    // axios.post(url, state, {
+    //     xsrfHeaderName: 'X-CSRFToken',
+    //     xsrfCookieName: 'csrftoken',
+    //     withCredentials: true
+    //   }
+    // ).then(function (response) {
+    //   console.log(response);
+    //   props.onSubmit();
+    // });
+
+    props.onSubmit();
   };
 
   const pregnantField = !state['pregnant'] ? null : (

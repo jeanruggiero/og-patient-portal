@@ -17,8 +17,6 @@ function PatientInformationForm(props) {
   const [state, setState] = useState({});
   const [formValid, setFormValid] = useState(true);
 
-  console.log(state);
-
   const handleChange = (event) => {
     setState({...state, [event.target.name]: event.target.value});
   };
@@ -31,19 +29,19 @@ function PatientInformationForm(props) {
       return;
     }
 
-    console.log("form valid");
-
     const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
 
-    axios.post(url, state, {
-        xsrfHeaderName: 'X-CSRFToken',
-        xsrfCookieName: 'csrftoken',
-        withCredentials: true
-      }
-    ).then(function (response) {
-      console.log(response);
-      props.onSubmit();
-    })
+    // axios.post(url, state, {
+    //     xsrfHeaderName: 'X-CSRFToken',
+    //     xsrfCookieName: 'csrftoken',
+    //     withCredentials: true
+    //   }
+    // ).then(function (response) {
+    //   console.log(response);
+    //   props.onSubmit();
+    // })
+
+    props.onSubmit();
   };
 
   const form = {

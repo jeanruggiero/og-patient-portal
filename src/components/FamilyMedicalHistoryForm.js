@@ -33,31 +33,30 @@ function FamilyMedicalHistoryForm(props) {
 
   const [state, setState] = useState({});
 
-  console.log(state);
-
   const handleChange = (event) => {
     setState({...state, [event.target.name]: event.target.value});
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('submitting form');
 
     const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
 
-    axios.post(url,
-      {
-        familyMedicalHistory: state
-      },
-      {
-        xsrfHeaderName: 'X-CSRFToken',
-        xsrfCookieName: 'csrftoken',
-        withCredentials: true
-      }
-    ).then(function (response) {
-      console.log(response);
-      props.onSubmit();
-    });
+    // axios.post(url,
+    //   {
+    //     familyMedicalHistory: state
+    //   },
+    //   {
+    //     xsrfHeaderName: 'X-CSRFToken',
+    //     xsrfCookieName: 'csrftoken',
+    //     withCredentials: true
+    //   }
+    // ).then(function (response) {
+    //   console.log(response);
+    //   props.onSubmit();
+    // });
+
+    props.onSubmit();
   };
 
   let fields = [];

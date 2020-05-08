@@ -29,16 +29,18 @@ function IntakeFormIdentifyingInfo(props) {
 
     const url = "http://127.0.0.1:8000/patients/id";
 
-    axios.get(url, {
-        params: state
-      })
-      .then(function (response) {
-        props.onSubmit(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-        return <ErrorScreen/>;
-      });
+    // axios.get(url, {
+    //     params: state
+    //   })
+    //   .then(function (response) {
+    //     props.onSubmit(response.data);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //     return <ErrorScreen/>;
+    //   });
+
+    props.onSubmit('0');
   };
 
   const handleChange = (event) => {
