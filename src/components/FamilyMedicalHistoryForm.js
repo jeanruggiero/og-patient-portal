@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Box} from "@material-ui/core";
 import IntakeFormHeader from "./IntakeFormHeader";
 import FormDescription from "./FormDescription";
@@ -10,6 +10,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import FormLabel from "@material-ui/core/FormLabel";
 import {makeStyles} from "@material-ui/core/styles";
+import SubmitButton from "./FormFields/SubmitButton";
+import FormInstruction from "./FormFields/FormInstruction";
+import CheckBoxControl from "./FormFields/CheckBoxControl";
 
 const useStyles = makeStyles(() => ({
   checkbox: {
@@ -19,34 +22,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-function FamilyOptions(props) {
-
-  const classes = useStyles();
-
-  const handleChange = (event) => {
-    if (props.onChange) {
-      props.onChange(event);
-    }
-  };
-
-  const fields = [];
-  for (const label of ["Mother", "Father", "Sibling"]) {
-    fields.push(
-      <FormControlLabel control={
-        <Checkbox className={classes.checkbox} name={label} onChange={handleChange} />
-      } label={label} />
-    )
-  }
-
-  return (
-    <FormControl component="fieldset" name={props.name}>
-      <FormGroup row>
-        {fields}
-      </FormGroup>
-    </FormControl>
-  )
-}
-
+const axios = require('axios');
 
 function FamilyMedicalHistoryForm(props) {
 
@@ -55,15 +31,55 @@ function FamilyMedicalHistoryForm(props) {
     "Cancer", "Diabetes", "Heart Disease", "High Blood Pressure", "Kidney Disease",
     "Lupus", "Stroke", "Thyroid Disease"];
 
+  const [state, setState] = useState({});
+
+  console.log(state);
+
+  const handleChange = (event) => {
+    setState({...state, [event.target.name]: event.target.value});
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('submitting form');
+
+    const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
+
+    axios.post(url,
+      {
+        familyMedicalHistory: state
+      },
+      {
+        xsrfHeaderName: 'X-CSRFToken',
+        xsrfCookieName: 'csrftoken',
+        withCredentials: true
+      }
+    ).then(function (response) {
+      console.log(response);
+      props.onSubmit();
+    });
+  };
+
   let fields = [];
 
   for (const [index, option] of options.entries()) {
     fields.push(
-      <Box display="flex" alignItems="center" bgcolor={index % 2 ? null : "grey.200"}>
+      <Box display="flex"
+           alignItems="center"
+           bgcolor={index % 2 ? null : "grey.200"}
+           py={0.5}
+      >
+
         <Box mx={1.5} width="130px" display="flex" justifyContent="flex-end">
           <FormLabel>{option}</FormLabel>
         </Box>
-        <FamilyOptions name={option}/>
+        <Box mb={-2}>
+          <CheckBoxControl name={option}
+                           options={["Mother", "Father", "Sibling"]}
+                           form={{onChange: handleChange}}
+                           row
+          />
+        </Box>
       </Box>
     )
   }
@@ -73,19 +89,20 @@ function FamilyMedicalHistoryForm(props) {
       <IntakeFormHeader subheader="Family Medical History"/>
       <FormDescription/>
 
-      <FormSection label="Family Medical History">
+      <form>
+        <FormSection label="Family Medical History">
+          <FormInstruction>
+            Do you have a history of any of the following in your immediate family?
+          </FormInstruction>
 
-        <Box mb={2}>
-          <Box mb={1.5}>
-            <FormLabel>
-              Do you have a history of any of the following in your immediate family?
-            </FormLabel>
+          <Box mb={3}>
+            {fields}
           </Box>
 
-          {fields}
-        </Box>
+        </FormSection>
 
-      </FormSection>
+        <SubmitButton onClick={handleSubmit} />
+      </form>
     </Box>
   )
 }

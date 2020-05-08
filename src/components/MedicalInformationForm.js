@@ -19,7 +19,10 @@ import SubmitButton from "./FormFields/SubmitButton";
 import CheckBoxControl from "./FormFields/CheckBoxControl";
 import Typography from "@material-ui/core/Typography";
 
-function MedicalInformationForm() {
+
+const axios = require('axios');
+
+function MedicalInformationForm(props) {
 
   const [state, setState] = useState({});
   const [formValid, setFormValid] = useState(true);
@@ -48,6 +51,18 @@ function MedicalInformationForm() {
     }
 
     console.log("form valid");
+
+    const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
+
+    axios.post(url, state, {
+        xsrfHeaderName: 'X-CSRFToken',
+        xsrfCookieName: 'csrftoken',
+        withCredentials: true
+      }
+    ).then(function (response) {
+      console.log(response);
+      props.onSubmit();
+    })
   };
 
   const pregnantField = !state['pregnant'] ? null : (
@@ -157,11 +172,12 @@ function MedicalInformationForm() {
                     required
       />
 
-      <RadioControl label="In what situations do you wear glasses?"
-                    name="glassesSituations"
-                    options={["Seeing near", "Seeing far"]}
-                    form={form}
-                    required
+      <CheckBoxControl label="In what situations do you wear glasses?"
+                       name="glassesSituations"
+                       options={["Seeing near", "Seeing far"]}
+                       form={form}
+                       row
+                       required
       />
 
       <SelectGroup label="Which type(s) of glasses do you own? (Select all that apply)"
@@ -385,7 +401,6 @@ function MedicalInformationForm() {
              name="contactsSolutionOther"
              form={form}
              width={200}
-             required
       />
     </Box>
   );

@@ -6,47 +6,91 @@ import PatientInformationForm from "./PatientInformationForm";
 import {Box} from "@material-ui/core";
 import MedicalInformationForm from "./MedicalInformationForm";
 import FamilyMedicalHistoryForm from "./FamilyMedicalHistoryForm";
+import ErrorScreen from "./ErrorScreen";
 
+const axios = require('axios');
 
 function FormPanel() {
 
-  const [gettingStartedSubmitted, setGettingStartedSubmitted] = useState(false);
-  const [hipaaSubmitted, setHipaaSubmitted] = useState(false);
+  //const [gettingStartedSubmitted, setGettingStartedSubmitted] = useState(false);
+  //const [hipaaSubmitted, setHipaaSubmitted] = useState(false);
+
+
   const [patientId, setPatientId] = useState();
+  const [formId, setFormId] = useState();
+  const [currentForm, setCurrentForm] = useState("identifyingInfo");
+
+  const onIdentifyingInfoSubmit = (id) => {
+    setPatientId(id);
+
+    const url = "http://127.0.0.1:8000/intake";
+
+    axios.get(url, {
+      params: {
+        patientId: id
+      }
+    }).then (function (response) {
+      console.log(response);
+      setFormId(response.data);
+      setCurrentForm("hipaa");
+    });
+  };
+
+  const onHipaaSubmit = () => {
+    setCurrentForm("patientInformation");
+  };
+
+  const onPatientInformationSubmit = () => {
+    setCurrentForm("medicalInfo");
+  };
+
+  const onMedicalInfoSubmit = () => {
+    setCurrentForm("familyHistory");
+  };
+
+  const onFamilyHistorySubmit = () => {
+    setCurrentForm("success");
+  };
 
   let form = null;
 
-  if (!gettingStartedSubmitted) {
-    form = (
-      <IntakeFormIdentifyingInfo onSubmit={(id) =>
-        {
-          setGettingStartedSubmitted(true);
-          setPatientId(id);
-        }
-      }/>
-    );
-  } else if (!hipaaSubmitted) {
-    console.log(patientId);
-    form = <HipaaForm patientId={patientId}/>;
+  switch (currentForm) {
+    case "identifyingInfo":
+      form = <IntakeFormIdentifyingInfo onSubmit={onIdentifyingInfoSubmit} />;
+      break;
+    case "hipaa":
+      form = <HipaaForm formId={formId}
+                        onSubmit={onHipaaSubmit}
+      />;
+      break;
+    case "patientInformation":
+      form = <PatientInformationForm formId={formId}
+                                     onSubmit={onPatientInformationSubmit}
+      />;
+      break;
+    case "medicalInfo":
+      form = <MedicalInformationForm formId={formId}
+                                     onSubmit={onMedicalInfoSubmit}
+      />;
+      break;
+    case "familyHistory":
+      form = <FamilyMedicalHistoryForm formId={formId}
+                                       onSubmit={onFamilyHistorySubmit}
+      />;
+      break;
+    case "success":
+      form = <h3>Submit successful!</h3>;
+      break;
+    default:
+      form = <ErrorScreen/>;
   }
 
-  // TODO
-  // form = <IntakeFormIdentifyingInfo onSubmit={(id) =>
-  //       {
-  //         setGettingStartedSubmitted(true);
-  //         setPatientId(id);
-  //       }
-  //     }/>;
-  //form=<HipaaForm patientId="58a9c26e-10d5-4952-a25b-d11c3953e233"/>;
-  // form = <PatientInformationForm patientId="58a9c26e-10d5-4952-a25b-d11c3953e233"/>;
-  form = <MedicalInformationForm patientId="58a9c26e-10d5-4952-a25b-d11c3953e233" />;
 
   return (
     <Box maxWidth={800} mx={3} mb={8}>
       {form}
     </Box>
   )
-
 }
 
 export default FormPanel;

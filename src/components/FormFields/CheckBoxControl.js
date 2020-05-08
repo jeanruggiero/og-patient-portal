@@ -10,14 +10,11 @@ function CheckBoxControl (props) {
 
   let temp = {};
 
-
   for (const option of props.options) {
     temp[option] = false;
   }
 
   const [state, setState] = useState(temp);
-
-  console.log(state);
 
   let value = [];
 
@@ -63,6 +60,7 @@ function CheckBoxControl (props) {
     fields.push(
       <FormControlLabel value={option}
                         label={option}
+                        error={error}
                         onChange={handleChange}
                         control={<Checkbox style={{
                           marginTop: -8,
@@ -75,6 +73,7 @@ function CheckBoxControl (props) {
 
   const label = !props.label ? null : (
     <FormLabel component="legend"
+               required={props.required}
                style={
                  {fontWeight: 500,
                    paddingBottom: 10}
@@ -96,7 +95,7 @@ function CheckBoxControl (props) {
 
         {label}
 
-        <FormGroup>
+        <FormGroup row={props.row} required={props.required}>
           {fields}
         </FormGroup>
 

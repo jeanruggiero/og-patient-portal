@@ -6,24 +6,79 @@ import Field from "./Field";
 function DetailSelectGroup(props) {
 
   const [state, setState] = useState({});
-  const [detailFields, setDetailFields] = useState([]);
+  const [selected, setSelected] = useState([]);
+  //const [detailFields, setDetailFields] = useState([]);
 
-  const handleChange = (event) => {
+  console.log(selected);
 
-    let newFields = [];
+  let detailFields = [];
 
-    console.log(event.target.value);
-    for (const field of event.target.value) {
-      newFields.push(<Field label={field + " Detail"} width={600} />);
+  const handleDetailBlur = (event) => {
+    setState({...state, [event.target.name]: event.target.value});
+
+    const s = {...state, [event.target.name]: event.target.value};
+
+    let details = {};
+
+    for (const v of selected) {
+      if (s[v]) {
+        details[v] = s[v];
+      }
     }
 
-    setDetailFields(newFields);
+    if (props.form && props.form.onChange) {
+      props.form.onChange({
+        target: {
+          name: props.name,
+          value: {
+            items: selected,
+            details: details
+          }
+        }
+      });
+    }
+  };
+
+  for (const field of selected) {
+    detailFields.push(
+      <Field label={field + " Detail"}
+             name={field}
+             onBlur={handleDetailBlur}
+             width={600}
+      />
+    );
+  }
+
+  const handleSelectChange = (event) => {
+
+    const value = event.target.value;
+    setSelected(value);
+
+    let details = {};
+
+    for (const v of value) {
+      if (state[v]) {
+        details[v] = state[v];
+      }
+    }
+
+    if (props.form && props.form.onChange) {
+      props.form.onChange({
+        target: {
+          name: props.name,
+          value: {
+            items: value,
+            details: details
+          }
+        }
+      });
+    }
   };
 
 
   return (
     <Box>
-      <SelectGroup onChange={handleChange} {...props} />
+      <SelectGroup {...props} form={{onChange: handleSelectChange}} />
       {detailFields}
     </Box>
   )

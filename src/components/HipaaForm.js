@@ -27,7 +27,7 @@ function HipaaForm(props) {
       return;
     }
 
-    let url = "http://127.0.0.1:8000/patients/" + props.patientId + "/";
+    let url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
     console.log(url);
 
     axios.post(url, {
@@ -40,7 +40,10 @@ function HipaaForm(props) {
       }
       ).then(function (response) {
         console.log(response);
-      })
+      });
+
+    props.onSubmit();
+
   };
 
   const form = {

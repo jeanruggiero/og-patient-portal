@@ -33,7 +33,7 @@ function PatientInformationForm(props) {
 
     console.log("form valid");
 
-    const url = "http://127.0.0.1:8000/patients/" + props.patientId + "/";
+    const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
 
     axios.post(url, state, {
         xsrfHeaderName: 'X-CSRFToken',
@@ -42,6 +42,7 @@ function PatientInformationForm(props) {
       }
     ).then(function (response) {
       console.log(response);
+      props.onSubmit();
     })
   };
 
@@ -55,7 +56,7 @@ function PatientInformationForm(props) {
   switch (state.relationshipToInsured) {
     case undefined:
     case null:
-    case "self":
+    case "Self":
       break;
     default:
       insuredFields = (

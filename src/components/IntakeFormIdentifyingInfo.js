@@ -38,7 +38,7 @@ function IntakeFormIdentifyingInfo(props) {
       .catch(function (error) {
         console.log(error);
         return <ErrorScreen/>;
-      })
+      });
   };
 
   const handleChange = (event) => {

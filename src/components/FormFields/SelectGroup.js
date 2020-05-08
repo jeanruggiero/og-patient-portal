@@ -31,27 +31,10 @@ function SelectGroup(props) {
   const classes = useStyles();
   const controls = [];
 
-  // const name = props.name;
-  // const onChange = props.onChange;
-  //
-  // useEffect(() => {
-  //   if (onChange) {
-  //     let value = [];
-  //
-  //     Object.keys(state).forEach(p => {
-  //       if (state[p]) {
-  //         value.push(p);
-  //       }
-  //     });
-  //
-  //     onChange({target: {name: name, value: value}});
-  //   }
-  // }, [state]);
-
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value});
 
-    if (props.onChange) {
+    if (props.form && props.form.onChange) {
       let value = [];
 
       Object.keys(state).forEach(p => {
@@ -64,9 +47,8 @@ function SelectGroup(props) {
         value.push(event.target.name);
       }
 
-      props.onChange({target: {name: props.name, value: value}});
+      props.form.onChange({target: {name: props.name, value: value}});
     }
-
   };
 
   // Build list of toggle chips
