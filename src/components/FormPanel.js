@@ -7,6 +7,7 @@ import {Box} from "@material-ui/core";
 import MedicalInformationForm from "./MedicalInformationForm";
 import FamilyMedicalHistoryForm from "./FamilyMedicalHistoryForm";
 import ErrorScreen from "./ErrorScreen";
+import { API_URL } from "../constants";
 
 const axios = require('axios');
 
@@ -23,20 +24,20 @@ function FormPanel() {
   const onIdentifyingInfoSubmit = (id) => {
     setPatientId(id);
 
-    const url = "http://127.0.0.1:8000/intake";
+    //const url = "http://127.0.0.1:8000/intake";
 
-    axios.get(url, {
+    axios.get(API_URL + "intake", {
       params: {
         patientId: id
       }
     }).then (function (response) {
-      // console.log(response);
-      // setFormId(response.data);
-      // setCurrentForm("hipaa");
+      console.log(response);
+      setFormId(response.data);
+      setCurrentForm("hipaa");
     });
 
-    setFormId('1');
-    setCurrentForm("hipaa");
+    // setFormId('1');
+    // setCurrentForm("hipaa");
   };
 
   const onHipaaSubmit = () => {

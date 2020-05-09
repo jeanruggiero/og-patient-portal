@@ -11,6 +11,8 @@ import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
 import ErrorScreen from "./ErrorScreen";
 
+import { API_URL } from "../constants";
+
 const axios = require('axios');
 
 function IntakeFormIdentifyingInfo(props) {
@@ -27,9 +29,9 @@ function IntakeFormIdentifyingInfo(props) {
       return;
     }
 
-    const url = "http://127.0.0.1:8000/patients/id";
+    //const url = "http://127.0.0.1:8000/patients/id";
 
-    axios.get(url, {
+    axios.get(API_URL + "patients/id", {
         params: state
       })
       .then(function (response) {
@@ -39,7 +41,7 @@ function IntakeFormIdentifyingInfo(props) {
         console.log(error);
       });
 
-    props.onSubmit('0');
+    //props.onSubmit('0');
   };
 
   const handleChange = (event) => {

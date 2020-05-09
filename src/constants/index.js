@@ -1,1 +1,1 @@
-export const API_URL = "http://localhost:8000";
+export const API_URL = "http://django-env.eba-bqurfhwn.us-west-2.elasticbeanstalk.com/";

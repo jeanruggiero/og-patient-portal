@@ -14,6 +14,8 @@ import SubmitButton from "./FormFields/SubmitButton";
 import FormInstruction from "./FormFields/FormInstruction";
 import CheckBoxControl from "./FormFields/CheckBoxControl";
 
+import { API_URL } from "../constants";
+
 const useStyles = makeStyles(() => ({
   checkbox: {
     marginRight: -5,
@@ -40,23 +42,23 @@ function FamilyMedicalHistoryForm(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
+    //const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
 
-    // axios.put(url,
-    //   {
-    //     familyMedicalHistory: state
-    //   },
-    //   {
-    //     xsrfHeaderName: 'X-CSRFToken',
-    //     xsrfCookieName: 'csrftoken',
-    //     withCredentials: true
-    //   }
-    // ).then(function (response) {
-    //   console.log(response);
-    //   props.onSubmit();
-    // });
+    axios.put(API_URL + props.formId + "/",
+      {
+        familyMedicalHistory: state
+      },
+      {
+        xsrfHeaderName: 'X-CSRFToken',
+        xsrfCookieName: 'csrftoken',
+        withCredentials: true
+      }
+    ).then(function (response) {
+      console.log(response);
+      props.onSubmit();
+    });
 
-    props.onSubmit();
+    //props.onSubmit();
   };
 
   let fields = [];
