@@ -1,1 +1,1 @@
-export const API_URL = "https://django-env.eba-bqurfhwn.us-west-2.elasticbeanstalk.com/";
+export const API_URL = "http://django-env.eba-bqurfhwn.us-west-2.elasticbeanstalk.com/";
