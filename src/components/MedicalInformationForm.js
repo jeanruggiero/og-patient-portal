@@ -231,6 +231,50 @@ function MedicalInformationForm(props) {
     />
   );
 
+  const contactLensSolutionsFields = !state['usesContactLensSolutions'] ? null : (
+    <Box>
+      <FormInstruction>
+        Please indicate type and brand of contact lens solutions.
+      </FormInstruction>
+
+      <Field label="Cleaner"
+             name="contactsCleaner"
+             form={form}
+             width={200}
+      />
+
+      <Field label="Rinse"
+             name="contactsRinse"
+             form={form}
+             width={200}
+      />
+
+      <Field label="Disinfectant"
+             name="contactsDisinfectant"
+             form={form}
+             width={200}
+      />
+
+      <Field label="Enzyme"
+             name="contactsEnzyme"
+             form={form}
+             width={200}
+      />
+
+      <Field label="Drops"
+             name="contactsDrops"
+             form={form}
+             width={200}
+      />
+
+      <Field label="Other"
+             name="contactsSolutionOther"
+             form={form}
+             width={200}
+      />
+    </Box>
+  );
+
   const contactsFields = !state['wearsContacts'] ? null : (
     <Box>
       <Field label="Since"
@@ -368,48 +412,14 @@ function MedicalInformationForm(props) {
              form={form}
       />
 
-      <FormInstruction>What contact lens solutions do you use?</FormInstruction>
-
-      <Field label="Cleaner"
-             name="contactsCleaner"
-             form={form}
-             width={200}
-             required
+      <YesNoField label="Do you use any contact lens solutions?"
+                  name="usesContactLensSolutions"
+                  form={form}
+                  required
       />
 
-      <Field label="Rinse"
-             name="contactsRinse"
-             form={form}
-             width={200}
-             required
-      />
+      {contactLensSolutionsFields}
 
-      <Field label="Disinfectant"
-             name="contactsDisinfectant"
-             form={form}
-             width={200}
-             required
-      />
-
-      <Field label="Enzyme"
-             name="contactsEnzyme"
-             form={form}
-             width={200}
-             required
-      />
-
-      <Field label="Drops"
-             name="contactsDrops"
-             form={form}
-             width={200}
-             required
-      />
-
-      <Field label="Other"
-             name="contactsSolutionOther"
-             form={form}
-             width={200}
-      />
     </Box>
   );
 
