@@ -89,6 +89,10 @@ function FormPanel() {
       form = <ErrorScreen/>;
   }
 
+  form = <MedicalInformationForm formId={formId}
+                                     onSubmit={onMedicalInfoSubmit}
+      />;
+
 
   return (
     <Box maxWidth={800} mx={3} mb={8}>

@@ -153,6 +153,15 @@ function MedicalInformationForm(props) {
     </Box>
   );
 
+  const otherEyewearNeedsField = (!state['specialEyewearNeeds']
+    || !state['specialEyewearNeeds'].includes("Other")) ? null : (
+      <Field label="Other (Please Explain)"
+             name="specialEyewearNeedsOther"
+             form={form}
+             width={400}
+      />
+  );
+
 
   const glassesFields = !state['wearsGlasses'] ? null : (
     <Box>
@@ -196,6 +205,8 @@ function MedicalInformationForm(props) {
                        form={form}
 
       />
+
+      {otherEyewearNeedsField}
 
       <YesNoField label="Are there activities in your life that would be easier without glasses?"
                   name="activitiesEasierWithoutGlasses"

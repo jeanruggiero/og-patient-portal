@@ -16,6 +16,9 @@ function CovidUpdate() {
             You are currently experiencing any of the following symptoms: cough, fever, or any other viral symptoms
           </li>
           <li>
+            You have been in contact with someone showing the above symptoms in the past two weeks
+          </li>
+          <li>
             You have traveled outside of Santa Clara County in the past two weeks
           </li>
           <li>

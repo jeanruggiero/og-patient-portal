@@ -65,23 +65,23 @@ function PatientInformationForm(props) {
           <Field label="First Name"
                  name="primaryInsuredFirstName"
                  form={form}
-                 required />
+          />
 
           <Field label="Last Name"
                  name="primaryInsuredLastName"
                  form={form}
-                 required />
+          />
 
           <DateField label="Date of Birth"
                      name="primaryInsuredDOB"
                      form={form}
-                     required/>
+          />
 
           <RadioControl options={["Male", "Female", "Other"]}
                         label="Gender"
                         name="primaryInsuredGender"
                         form={form}
-                        required />
+          />
         </Box>
       )
   }
@@ -201,7 +201,7 @@ function PatientInformationForm(props) {
                  name="insuranceCompany"
                  width={300}
                  form={form}
-                 required/>
+          />
 
           <FormInstruction>Address of insurance company:</FormInstruction>
 
@@ -209,30 +209,30 @@ function PatientInformationForm(props) {
                  name="insuranceCompanyStreetAddress"
                  width={250}
                  form={form}
-                 required />
+          />
 
           <Field label="City"
                  name="insuranceCompanyCity"
                  form={form}
-                 required />
+          />
 
           <Field label="State"
                  name="insuranceCompanyState"
                  width={60}
                  form={form}
-                 required />
+          />
 
           <Field label="Zip"
                  name="insuranceCompanyZip"
                  width={90}
                  form={form}
-                 required />
+          />
 
           <RadioControl label="Patient's relationship to insured individual"
                         name="relationshipToInsured"
                         options={["Self", "Spouse", "Child", "Other"]}
                         form={form}
-                        required />
+          />
 
           {insuredFields}
 
@@ -240,7 +240,7 @@ function PatientInformationForm(props) {
                  name="InsuranceIdNumber"
                  form={form}
                  width={180}
-                 required />
+          />
 
           <Field label="Group Number"
                  name="insuranceGroupNumber"
@@ -251,7 +251,7 @@ function PatientInformationForm(props) {
                  name="insuredEmployer"
                  form={form}
                  width={250}
-                 required/>
+          />
 
           <MedicalBenefitsReleaseCheckbox form={form} />
         </FormSection>
