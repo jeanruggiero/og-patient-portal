@@ -18,6 +18,7 @@ import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
 import CheckBoxControl from "./FormFields/CheckBoxControl";
 import Typography from "@material-ui/core/Typography";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 
 const axios = require('axios');
@@ -492,16 +493,19 @@ function MedicalInformationForm(props) {
 
           <DateField label="Date of Last Health Exam"
                      name="dateLastHealthExam"
+                     disableFuture
                      form={form}
           />
 
           <DateField label="Date of Last Eye Exam"
                      name="dateLastEyeExam"
+                     disableFuture
                      form={form}
           />
 
           <DateField label="Date of Last Dilation"
                      name="dateLastDilation"
+                     disableFuture
                      form={form}
           />
 
@@ -509,23 +513,32 @@ function MedicalInformationForm(props) {
             <Box component="span">
               <FormInstruction>Height:</FormInstruction>
 
-              <Field label="Feet"
-                     name="heightFeet"
+              <Field name="heightFeet"
                      form={form}
-                     width={55}/>
+                     width={60}
+                     InputProps={{
+                       endAdornment: <InputAdornment position="end">ft</InputAdornment>
+                     }}
+              />
 
-              <Field label="Inches"
-                     name="heightInches"
+              <Field name="heightInches"
                      form={form}
-                     width={55}/>
+                     width={70}
+                     InputProps={{
+                       endAdornment: <InputAdornment position="end">in</InputAdornment>
+                     }}
+              />
             </Box>
 
             <Box component="span" pl={2}>
               <FormInstruction>Weight:</FormInstruction>
-              <Field label="Pounds"
-                     name="weight"
+              <Field name="weight"
                      form={form}
-                     width={55}/>
+                     width={80}
+                     InputProps={{
+                       endAdornment: <InputAdornment position="end">lbs</InputAdornment>
+                     }}
+              />
             </Box>
           </Box>
 

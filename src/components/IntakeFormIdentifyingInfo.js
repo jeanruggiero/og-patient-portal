@@ -29,19 +29,17 @@ function IntakeFormIdentifyingInfo(props) {
       return;
     }
 
-    //const url = "http://127.0.0.1:8000/patients/id";
+    // axios.get(API_URL + "patients/id", {
+    //     params: state
+    //   })
+    //   .then(function (response) {
+    //     props.onSubmit(response.data);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
 
-    axios.get(API_URL + "patients/id", {
-        params: state
-      })
-      .then(function (response) {
-        props.onSubmit(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    //props.onSubmit('0');
+    props.onSubmit('0');
   };
 
   const handleChange = (event) => {
@@ -81,6 +79,9 @@ function IntakeFormIdentifyingInfo(props) {
             <DateField label="Date of Birth"
                        name="DOB"
                        form={form}
+                       disableFuture
+                       views={["year", "month", "date"]}
+                       openTo="year"
                        required/>
 
             <Field label="Email"

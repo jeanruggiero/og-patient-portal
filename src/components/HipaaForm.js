@@ -29,22 +29,21 @@ function HipaaForm(props) {
       return;
     }
 
-    //let url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
 
-    axios.put(API_URL + props.formId + "/", {
-        HipaaAcknowledgement: true
-      },
-      {
-        xsrfHeaderName: 'X-CSRFToken',
-        xsrfCookieName: 'csrftoken',
-        withCredentials: true
-      }
-      ).then(function (response) {
-        console.log(response);
-        props.onSubmit();
-      });
+    // axios.put(API_URL + props.formId + "/", {
+    //     HipaaAcknowledgement: true
+    //   },
+    //   {
+    //     xsrfHeaderName: 'X-CSRFToken',
+    //     xsrfCookieName: 'csrftoken',
+    //     withCredentials: true
+    //   }
+    //   ).then(function (response) {
+    //     console.log(response);
+    //     props.onSubmit();
+    //   });
 
-    //props.onSubmit();
+    props.onSubmit();
 
   };
 

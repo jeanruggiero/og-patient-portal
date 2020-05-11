@@ -24,20 +24,18 @@ function FormPanel() {
   const onIdentifyingInfoSubmit = (id) => {
     setPatientId(id);
 
-    //const url = "http://127.0.0.1:8000/intake";
+    // axios.get(API_URL + "intake", {
+    //   params: {
+    //     patientId: id
+    //   }
+    // }).then (function (response) {
+    //   console.log(response);
+    //   setFormId(response.data);
+    //   setCurrentForm("hipaa");
+    // });
 
-    axios.get(API_URL + "intake", {
-      params: {
-        patientId: id
-      }
-    }).then (function (response) {
-      console.log(response);
-      setFormId(response.data);
-      setCurrentForm("hipaa");
-    });
-
-    // setFormId('1');
-    // setCurrentForm("hipaa");
+    setFormId('1');
+    setCurrentForm("hipaa");
   };
 
   const onHipaaSubmit = () => {
@@ -89,9 +87,8 @@ function FormPanel() {
       form = <ErrorScreen/>;
   }
 
-  form = <MedicalInformationForm formId={formId}
-                                     onSubmit={onMedicalInfoSubmit}
-      />;
+  //form = <IntakeFormIdentifyingInfo onSubmit={onIdentifyingInfoSubmit} />;
+
 
 
   return (

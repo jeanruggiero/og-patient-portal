@@ -52,6 +52,9 @@ function DateField(props) {
                 error
                 label={props.label}
                 required={props.required}
+                disableFuture={props.disableFuture}
+                views={props.views}
+                openTo={props.openTo}
           />
         </MuiPickersUtilsProvider>
       </Box>
@@ -77,6 +80,9 @@ function DateField(props) {
                       paddingBottom: 15}}
               label={props.label}
               required={props.required}
+              disableFuture={props.disableFuture}
+              views={props.views}
+              openTo={props.openTo}
         />
       </MuiPickersUtilsProvider>
     </Box>

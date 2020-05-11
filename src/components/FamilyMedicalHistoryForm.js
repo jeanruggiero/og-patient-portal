@@ -15,6 +15,7 @@ import FormInstruction from "./FormFields/FormInstruction";
 import CheckBoxControl from "./FormFields/CheckBoxControl";
 
 import { API_URL } from "../constants";
+import Field from "./FormFields/Field";
 
 const useStyles = makeStyles(() => ({
   checkbox: {
@@ -35,6 +36,8 @@ function FamilyMedicalHistoryForm(props) {
 
   const [state, setState] = useState({});
 
+  console.log(state);
+
   const handleChange = (event) => {
     setState({...state, [event.target.name]: event.target.value});
   };
@@ -42,45 +45,76 @@ function FamilyMedicalHistoryForm(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    //const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
+    // axios.put(API_URL + props.formId + "/",
+    //   {
+    //     familyMedicalHistory: state
+    //   },
+    //   {
+    //     xsrfHeaderName: 'X-CSRFToken',
+    //     xsrfCookieName: 'csrftoken',
+    //     withCredentials: true
+    //   }
+    // ).then(function (response) {
+    //   console.log(response);
+    //   props.onSubmit();
+    // });
 
-    axios.put(API_URL + props.formId + "/",
-      {
-        familyMedicalHistory: state
-      },
-      {
-        xsrfHeaderName: 'X-CSRFToken',
-        xsrfCookieName: 'csrftoken',
-        withCredentials: true
-      }
-    ).then(function (response) {
-      console.log(response);
-      props.onSubmit();
-    });
-
-    //props.onSubmit();
+    props.onSubmit();
   };
+
+  const form = {onChange: handleChange};
 
   let fields = [];
 
   for (const [index, option] of options.entries()) {
     fields.push(
-      <Box display="flex"
-           alignItems="center"
-           bgcolor={index % 2 ? null : "grey.200"}
-           py={0.5}
-      >
+      <Box bgcolor={index % 2 ? null : "grey.200"}>
+        <Box display="flex"
+             flexShrink={0}
+             py={0.5}>
 
-        <Box mx={1.5} width="130px" display="flex" justifyContent="flex-end">
-          <FormLabel>{option}</FormLabel>
+          <Box mx={1.5} mt={0.3} width="160px" flexShrink={0}>
+            <FormLabel>{option}</FormLabel>
+          </Box>
+          <Box mb={-2} display="block">
+            <CheckBoxControl name={option}
+                             options={["Mother", "Father", "Sibling"]}
+                             form={form}
+                             row
+            />
+
+            {(state[option] && (state[option].length !== 0)) &&
+              <Box mb={1}>
+
+                {(state[option] && (option === "Cataracts" || option === "Glaucoma"
+                  || option === "Macular Degeneration")) &&
+                  <Box display="inline">
+                    <Field label="Age of Onset"
+                           name={option + "AgeOfOnset"}
+                           form={form}
+                           width={90}
+                    />
+
+                    <Field label="Severity"
+                           name={option + "Severity"}
+                           form={form}
+                           width={120}
+                    />
+                  </Box>
+                }
+
+                <Field label="Details"
+                       name={option + "Details"}
+                       form={form}
+                       width={320}
+                />
+              </Box>
+            }
+
+          </Box>
+
         </Box>
-        <Box mb={-2}>
-          <CheckBoxControl name={option}
-                           options={["Mother", "Father", "Sibling"]}
-                           form={{onChange: handleChange}}
-                           row
-          />
-        </Box>
+
       </Box>
     )
   }
