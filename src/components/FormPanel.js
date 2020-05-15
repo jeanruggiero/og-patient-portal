@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import IntakeFormIdentifyingInfo from "./IntakeFormIdentifyingInfo";
-import Typography from "@material-ui/core/Typography";
 import HipaaForm from "./HipaaForm";
 import PatientInformationForm from "./PatientInformationForm";
 import {Box} from "@material-ui/core";
@@ -24,18 +23,18 @@ function FormPanel() {
   const onIdentifyingInfoSubmit = (id) => {
     setPatientId(id);
 
-    // axios.get(API_URL + "intake", {
-    //   params: {
-    //     patientId: id
-    //   }
-    // }).then (function (response) {
-    //   console.log(response);
-    //   setFormId(response.data);
-    //   setCurrentForm("hipaa");
-    // });
+    axios.get(API_URL + "intake", {
+      params: {
+        patientId: id
+      }
+    }).then (function (response) {
+      console.log(response);
+      setFormId(response.data);
+      setCurrentForm("hipaa");
+    });
 
-    setFormId('1');
-    setCurrentForm("hipaa");
+    // setFormId('1');
+    // setCurrentForm("hipaa");
   };
 
   const onHipaaSubmit = () => {

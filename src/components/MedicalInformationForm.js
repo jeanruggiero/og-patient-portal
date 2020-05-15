@@ -9,16 +9,13 @@ import DetailSelectGroup from "./FormFields/DetailSelectGroup";
 import DateField from "./FormFields/DateField";
 import RadioControl from "./FormFields/RadioControl";
 import ListControl from "./FormFields/ListControl";
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import YesNoField from "./FormFields/YesNoField";
 import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
 import CheckBoxControl from "./FormFields/CheckBoxControl";
 import Typography from "@material-ui/core/Typography";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import {API_URL} from "../constants";
 
 
 const axios = require('axios');
@@ -48,19 +45,19 @@ function MedicalInformationForm(props) {
       return;
     }
 
-    const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
+    //const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
 
-    // axios.put(url, state, {
-    //     xsrfHeaderName: 'X-CSRFToken',
-    //     xsrfCookieName: 'csrftoken',
-    //     withCredentials: true
-    //   }
-    // ).then(function (response) {
-    //   console.log(response);
-    //   props.onSubmit();
-    // });
+    axios.put(API_URL + "intake/" + props.formId + "/", state, {
+        xsrfHeaderName: 'X-CSRFToken',
+        xsrfCookieName: 'csrftoken',
+        withCredentials: true
+      }
+    ).then(function (response) {
+      console.log(response);
+      props.onSubmit();
+    });
 
-    props.onSubmit();
+    //props.onSubmit();
   };
 
   const pregnantField = !state['pregnant'] ? null : (

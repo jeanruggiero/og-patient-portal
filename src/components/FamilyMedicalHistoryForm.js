@@ -3,11 +3,6 @@ import {Box} from "@material-ui/core";
 import IntakeFormHeader from "./IntakeFormHeader";
 import FormDescription from "./FormDescription";
 import FormSection from "./FormSection";
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Typography from "@material-ui/core/Typography";
 import FormLabel from "@material-ui/core/FormLabel";
 import {makeStyles} from "@material-ui/core/styles";
 import SubmitButton from "./FormFields/SubmitButton";
@@ -45,21 +40,21 @@ function FamilyMedicalHistoryForm(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // axios.put(API_URL + props.formId + "/",
-    //   {
-    //     familyMedicalHistory: state
-    //   },
-    //   {
-    //     xsrfHeaderName: 'X-CSRFToken',
-    //     xsrfCookieName: 'csrftoken',
-    //     withCredentials: true
-    //   }
-    // ).then(function (response) {
-    //   console.log(response);
-    //   props.onSubmit();
-    // });
+    axios.put(API_URL + "intake/" + props.formId + "/",
+      {
+        familyMedicalHistory: state
+      },
+      {
+        xsrfHeaderName: 'X-CSRFToken',
+        xsrfCookieName: 'csrftoken',
+        withCredentials: true
+      }
+    ).then(function (response) {
+      console.log(response);
+      props.onSubmit();
+    });
 
-    props.onSubmit();
+    //props.onSubmit();
   };
 
   const form = {onChange: handleChange};

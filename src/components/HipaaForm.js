@@ -30,20 +30,20 @@ function HipaaForm(props) {
     }
 
 
-    // axios.put(API_URL + props.formId + "/", {
-    //     HipaaAcknowledgement: true
-    //   },
-    //   {
-    //     xsrfHeaderName: 'X-CSRFToken',
-    //     xsrfCookieName: 'csrftoken',
-    //     withCredentials: true
-    //   }
-    //   ).then(function (response) {
-    //     console.log(response);
-    //     props.onSubmit();
-    //   });
+    axios.put(API_URL + "intake/" + props.formId + "/", {
+        HipaaAcknowledgement: true
+      },
+      {
+        xsrfHeaderName: 'X-CSRFToken',
+        xsrfCookieName: 'csrftoken',
+        withCredentials: true
+      }
+      ).then(function (response) {
+        console.log(response);
+        props.onSubmit();
+      });
 
-    props.onSubmit();
+    //props.onSubmit();
 
   };
 
@@ -54,6 +54,8 @@ function HipaaForm(props) {
 
   return (
     <Box maxWidth={800}>
+
+      <p>Testing update</p>
 
       <IntakeFormHeader subheader="Notice of Privacy Practices"/>
       <FormDescription/>

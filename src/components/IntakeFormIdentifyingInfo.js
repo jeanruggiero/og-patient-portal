@@ -9,7 +9,6 @@ import FormSection from "./FormSection";
 import CovidUpdate from "./CovidUpdate";
 import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
-import ErrorScreen from "./ErrorScreen";
 
 import { API_URL } from "../constants";
 
@@ -29,17 +28,17 @@ function IntakeFormIdentifyingInfo(props) {
       return;
     }
 
-    // axios.get(API_URL + "patients/id", {
-    //     params: state
-    //   })
-    //   .then(function (response) {
-    //     props.onSubmit(response.data);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    axios.get(API_URL + "patients/id", {
+        params: state
+      })
+      .then(function (response) {
+        props.onSubmit(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-    props.onSubmit('0');
+    //props.onSubmit('0');
   };
 
   const handleChange = (event) => {

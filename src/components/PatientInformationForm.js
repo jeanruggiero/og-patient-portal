@@ -9,6 +9,7 @@ import DateField from "./FormFields/DateField";
 import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
 import MedicalBenefitsReleaseCheckbox from "./FormFields/MedicalBenefitsReleaseCheckbox";
+import {API_URL} from "../constants";
 
 const axios = require('axios');
 
@@ -29,19 +30,19 @@ function PatientInformationForm(props) {
       return;
     }
 
-    const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
+    //const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
 
-    // axios.put(url, state, {
-    //     xsrfHeaderName: 'X-CSRFToken',
-    //     xsrfCookieName: 'csrftoken',
-    //     withCredentials: true
-    //   }
-    // ).then(function (response) {
-    //   console.log(response);
-    //   props.onSubmit();
-    // });
+    axios.put(API_URL + "intake/" + props.formId + "/", state, {
+        xsrfHeaderName: 'X-CSRFToken',
+        xsrfCookieName: 'csrftoken',
+        withCredentials: true
+      }
+    ).then(function (response) {
+      console.log(response);
+      props.onSubmit();
+    });
 
-    props.onSubmit();
+    //props.onSubmit();
   };
 
   const form = {
