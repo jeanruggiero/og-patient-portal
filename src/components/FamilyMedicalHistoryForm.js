@@ -53,8 +53,6 @@ function FamilyMedicalHistoryForm(props) {
       console.log(response);
       props.onSubmit();
     });
-
-    //props.onSubmit();
   };
 
   const form = {onChange: handleChange};

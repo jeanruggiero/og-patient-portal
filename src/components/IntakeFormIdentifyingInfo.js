@@ -38,7 +38,6 @@ function IntakeFormIdentifyingInfo(props) {
         console.log(error);
       });
 
-    //props.onSubmit('0');
   };
 
   const handleChange = (event) => {

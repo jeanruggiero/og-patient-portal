@@ -45,8 +45,6 @@ function MedicalInformationForm(props) {
       return;
     }
 
-    //const url = "http://127.0.0.1:8000/intake/" + props.formId + "/";
-
     axios.put(API_URL + "intake/" + props.formId + "/", state, {
         xsrfHeaderName: 'X-CSRFToken',
         xsrfCookieName: 'csrftoken',
@@ -57,7 +55,6 @@ function MedicalInformationForm(props) {
       props.onSubmit();
     });
 
-    //props.onSubmit();
   };
 
   const pregnantField = !state['pregnant'] ? null : (

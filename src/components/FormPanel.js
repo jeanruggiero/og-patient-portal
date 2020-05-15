@@ -12,10 +12,6 @@ const axios = require('axios');
 
 function FormPanel() {
 
-  //const [gettingStartedSubmitted, setGettingStartedSubmitted] = useState(false);
-  //const [hipaaSubmitted, setHipaaSubmitted] = useState(false);
-
-
   const [patientId, setPatientId] = useState();
   const [formId, setFormId] = useState();
   const [currentForm, setCurrentForm] = useState("identifyingInfo");
@@ -33,8 +29,6 @@ function FormPanel() {
       setCurrentForm("hipaa");
     });
 
-    // setFormId('1');
-    // setCurrentForm("hipaa");
   };
 
   const onHipaaSubmit = () => {
@@ -85,10 +79,6 @@ function FormPanel() {
     default:
       form = <ErrorScreen/>;
   }
-
-  //form = <IntakeFormIdentifyingInfo onSubmit={onIdentifyingInfoSubmit} />;
-
-
 
   return (
     <Box maxWidth={800} mx={3} mb={8}>

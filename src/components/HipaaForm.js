@@ -43,8 +43,6 @@ function HipaaForm(props) {
         props.onSubmit();
       });
 
-    //props.onSubmit();
-
   };
 
   const form = {
@@ -54,8 +52,6 @@ function HipaaForm(props) {
 
   return (
     <Box maxWidth={800}>
-
-      <p>Testing update</p>
 
       <IntakeFormHeader subheader="Notice of Privacy Practices"/>
       <FormDescription/>
