@@ -40,9 +40,14 @@ function FamilyMedicalHistoryForm(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const now = Date.now();
+    const d = now.getFullYear() + '-' + (now.getMonth() < 9 ? '0' : '') + (now.getMonth() + 1) +
+      '-' + (now.getDate() < 10 ? '0' : '') + now.getDate();
+
     axios.put(API_URL + "intake/" + props.formId + "/",
       {
-        familyMedicalHistory: state
+        familyMedicalHistory: state,
+        dateSubmitted: d
       },
       {
         xsrfHeaderName: 'X-CSRFToken',

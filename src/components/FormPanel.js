@@ -75,6 +75,7 @@ function FormPanel() {
       break;
     case "success":
       form = <h3>Submit successful!</h3>;
+
       break;
     default:
       form = <ErrorScreen/>;
