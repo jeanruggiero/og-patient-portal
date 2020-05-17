@@ -15,7 +15,7 @@ import SubmitButton from "./FormFields/SubmitButton";
 import CheckBoxControl from "./FormFields/CheckBoxControl";
 import Typography from "@material-ui/core/Typography";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import {API_URL} from "../constants";
+import {API_URL} from "../../constants";
 
 
 const axios = require('axios');
@@ -433,7 +433,7 @@ function MedicalInformationForm(props) {
   return (
     <Box>
       <IntakeFormHeader subheader="Medical Information"/>
-      <FormDescription/>
+      <FormDescription office={props.office}/>
 
       <form>
         <FormSection label="Current Symptoms & Conditions">

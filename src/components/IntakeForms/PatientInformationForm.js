@@ -9,7 +9,7 @@ import DateField from "./FormFields/DateField";
 import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
 import MedicalBenefitsReleaseCheckbox from "./FormFields/MedicalBenefitsReleaseCheckbox";
-import {API_URL} from "../constants";
+import {API_URL} from "../../constants";
 
 const axios = require('axios');
 
@@ -87,7 +87,7 @@ function PatientInformationForm(props) {
   return (
     <Box>
       <IntakeFormHeader subheader="Patient Information"/>
-      <FormDescription/>
+      <FormDescription office={props.office}/>
 
       <form>
         <FormSection label="Contact Information">

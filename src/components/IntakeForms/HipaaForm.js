@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import IntakeFormHeader from "./IntakeFormHeader";
 import Button from "@material-ui/core/Button";
 
-import Pdf from '../static/Notice_of_Privacy_Practices.pdf'
+import Pdf from '../../static/Notice_of_Privacy_Practices.pdf'
 import Field from "./FormFields/Field";
 import Box from "@material-ui/core/Box";
 import FormSection from "./FormSection";
@@ -12,7 +12,7 @@ import FormDescription from "./FormDescription";
 import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
 
-import { API_URL } from "../constants";
+import { API_URL } from "../../constants";
 
 const axios = require('axios');
 
@@ -51,10 +51,10 @@ function HipaaForm(props) {
   };
 
   return (
-    <Box maxWidth={800}>
+    <Box>
 
       <IntakeFormHeader subheader="Notice of Privacy Practices"/>
-      <FormDescription/>
+      <FormDescription office={props.office} />
 
       <form>
         <FormSection label="Notice of Privacy Practices Acknowledgement">

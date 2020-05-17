@@ -5,16 +5,28 @@ import PatientInformationForm from "./PatientInformationForm";
 import {Box} from "@material-ui/core";
 import MedicalInformationForm from "./MedicalInformationForm";
 import FamilyMedicalHistoryForm from "./FamilyMedicalHistoryForm";
-import ErrorScreen from "./ErrorScreen";
-import { API_URL } from "../constants";
+import { API_URL } from "../../constants";
+import ErrorPage from "../ErrorPage";
+import {BrowserRouter, Switch, Route} from "react-router-dom";
+import FormsLandingPage from "./FormsLandingPage";
+import LandingPage from "../LandingPage/LandingPage";
+
 
 const axios = require('axios');
 
 function FormPanel() {
 
+  const [office, setOffice] = useState();
+  //const [appointmentRequest, setAppointmentRequest] = useState();
   const [patientId, setPatientId] = useState();
   const [formId, setFormId] = useState();
-  const [currentForm, setCurrentForm] = useState("identifyingInfo");
+  const [currentForm, setCurrentForm] = useState("landingPage");
+
+  const onLandingPageSubmit = (office) => {
+    setOffice(office);
+    setCurrentForm("identifyingInfo");
+  };
+
 
   const onIdentifyingInfoSubmit = (id) => {
     setPatientId(id);
@@ -50,27 +62,36 @@ function FormPanel() {
   let form = null;
 
   switch (currentForm) {
+    case "landingPage":
+      form = <FormsLandingPage onSubmit={onLandingPageSubmit} />;
+      break;
     case "identifyingInfo":
-      form = <IntakeFormIdentifyingInfo onSubmit={onIdentifyingInfoSubmit} />;
+      form = <IntakeFormIdentifyingInfo onSubmit={onIdentifyingInfoSubmit}
+                                        office={office}
+      />;
       break;
     case "hipaa":
       form = <HipaaForm formId={formId}
                         onSubmit={onHipaaSubmit}
+                        office={office}
       />;
       break;
     case "patientInformation":
       form = <PatientInformationForm formId={formId}
                                      onSubmit={onPatientInformationSubmit}
+                                     office={office}
       />;
       break;
     case "medicalInfo":
       form = <MedicalInformationForm formId={formId}
                                      onSubmit={onMedicalInfoSubmit}
+                                     office={office}
       />;
       break;
     case "familyHistory":
       form = <FamilyMedicalHistoryForm formId={formId}
                                        onSubmit={onFamilyHistorySubmit}
+                                       office={office}
       />;
       break;
     case "success":
@@ -78,15 +99,11 @@ function FormPanel() {
 
       break;
     default:
-      form = <ErrorScreen/>;
+      form = <ErrorPage/>;
   }
 
-  form = <FamilyMedicalHistoryForm formId={0}
-                                       onSubmit={onFamilyHistorySubmit}
-      />;
-
   return (
-    <Box maxWidth={800} mx={3} mb={8}>
+    <Box>
       {form}
     </Box>
   )

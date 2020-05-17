@@ -10,7 +10,8 @@ import CovidUpdate from "./CovidUpdate";
 import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
 
-import { API_URL } from "../constants";
+import { API_URL } from "../../constants";
+import Box from "@material-ui/core/Box";
 
 const axios = require('axios');
 
@@ -50,10 +51,9 @@ function IntakeFormIdentifyingInfo(props) {
   };
 
   return (
-    <Container>
+    <Box>
       <IntakeFormHeader subheader="Getting Started"/>
-      <FormDescription/>
-      <CovidUpdate/>
+      <FormDescription office={props.office} />
 
       <form onSubmit={handleSubmit}>
         <FormSection label="Personal Information">
@@ -92,7 +92,7 @@ function IntakeFormIdentifyingInfo(props) {
 
         <SubmitButton onClick={handleSubmit} />
       </form>
-    </Container>
+    </Box>
   )
 }
 

@@ -9,7 +9,7 @@ import SubmitButton from "./FormFields/SubmitButton";
 import FormInstruction from "./FormFields/FormInstruction";
 import CheckBoxControl from "./FormFields/CheckBoxControl";
 
-import { API_URL } from "../constants";
+import { API_URL } from "../../constants";
 import Field from "./FormFields/Field";
 
 const useStyles = makeStyles(() => ({
@@ -120,7 +120,7 @@ function FamilyMedicalHistoryForm(props) {
   return (
     <Box>
       <IntakeFormHeader subheader="Family Medical History"/>
-      <FormDescription/>
+      <FormDescription office={props.office} />
 
       <form>
         <FormSection label="Family Medical History">
