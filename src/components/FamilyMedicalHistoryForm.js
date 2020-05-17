@@ -40,7 +40,7 @@ function FamilyMedicalHistoryForm(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const now = Date.now();
+    const now = new Date();
     const d = now.getFullYear() + '-' + (now.getMonth() < 9 ? '0' : '') + (now.getMonth() + 1) +
       '-' + (now.getDate() < 10 ? '0' : '') + now.getDate();
 

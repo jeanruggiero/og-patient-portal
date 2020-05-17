@@ -81,6 +81,10 @@ function FormPanel() {
       form = <ErrorScreen/>;
   }
 
+  form = <FamilyMedicalHistoryForm formId={0}
+                                       onSubmit={onFamilyHistorySubmit}
+      />;
+
   return (
     <Box maxWidth={800} mx={3} mb={8}>
       {form}
