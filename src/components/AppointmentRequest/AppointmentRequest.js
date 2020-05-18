@@ -9,13 +9,19 @@ import Button from "@material-ui/core/Button";
 import RadioControl from "../IntakeForms/FormFields/RadioControl";
 import Field from "../IntakeForms/FormFields/Field";
 import DateField from "../IntakeForms/FormFields/DateField";
+import {API_URL} from "../../constants";
+import IdentifyingInfoPanel from "./IdentifyingInfoPanel";
 
-function AppointmentRequest() {
+const axios = require('axios');
+
+function AppointmentRequest(props) {
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   const [state, setState] = useState({});
   const [formValid, setFormValid] = useState(true);
+
+  console.log(state);
 
   const handleChange = (event) => {
     setState({...state, [event.target.name]: event.target.value});
@@ -28,6 +34,13 @@ function AppointmentRequest() {
       setFormValid(false);
       return;
     }
+
+    axios.post(API_URL + "appointment_request/", state)
+      .then((response) => {
+          console.log(response);
+          props.onSubmit();
+        }
+      );
   };
 
   const form = {
@@ -48,39 +61,7 @@ function AppointmentRequest() {
       </Box>
 
       <form>
-        <FormSection label="Personal Information">
-            <FormInstruction>Please enter your legal name as it appears on your insurance card.</FormInstruction>
-
-            <Field label="First Name"
-                   name="firstName"
-                   form={form}
-                   required/>
-
-            <Field label="MI"
-                   name="MI"
-                   form={form}
-                   width={45}/>
-
-            <Field label="Last Name"
-                   name="lastName"
-                   form={form}
-                   required/>
-
-            <DateField label="Date of Birth"
-                       name="DOB"
-                       form={form}
-                       disableFuture
-                       views={["year", "month", "date"]}
-                       openTo="year"
-                       required/>
-
-            <Field label="Email"
-                   name="email"
-                   form={form}
-                   width={300}
-                   required/>
-
-        </FormSection>
+        <IdentifyingInfoPanel form={form} />
 
         <FormSection label="Appointment Details">
           <CheckBoxControl label="Reason for Appointment (select all that apply):"

@@ -3,6 +3,7 @@ import CovidScreening from "./CovidScreening";
 import AppointmentRequest from "./AppointmentRequest";
 import CovidContact from "./CovidContact";
 import Box from "@material-ui/core/Box";
+import AppointmentRequestSuccess from "./AppointmentRequestSuccess";
 
 function AppointmentRequestPanel() {
 
@@ -14,12 +15,18 @@ function AppointmentRequestPanel() {
     setStatus(status);
   };
 
+  const handleAppointmentRequestSubmit = () => {
+    setStatus('success');
+  };
+
   let form;
 
   if (status === false) {
-    form = <AppointmentRequest/>;
+    form = <AppointmentRequest onSubmit={handleAppointmentRequestSubmit}/>;
   } else if (status === true) {
     form = <CovidContact/>
+  } else if (status === 'success') {
+    form = <AppointmentRequestSuccess/>;
   } else {
     form = <CovidScreening onSubmit={handleCovidScreeningSubmit} />
   }

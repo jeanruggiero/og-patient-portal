@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import FormSection from "../IntakeForms/FormSection";
 import YesNoField from "../IntakeForms/FormFields/YesNoField";
 import SubmitButton from "../IntakeForms/FormFields/SubmitButton";
+import FormInstruction from "../IntakeForms/FormFields/FormInstruction";
 
 function CovidScreening(props) {
 
@@ -84,6 +85,12 @@ function CovidScreening(props) {
           />
 
         </FormSection>
+
+        <Box display="flex" justifyContent="flex-end">
+          <FormInstruction>
+            By clicking "CONTINUE", I hereby agree that the information provided above is accurate.
+          </FormInstruction>
+        </Box>
 
         <SubmitButton onClick={handleSubmit}/>
       </form>

@@ -1,5 +1,7 @@
 import { createMuiTheme, responsiveFontSizes} from "@material-ui/core/styles"
 import grey from '@material-ui/core/colors/grey';
+import blue from "@material-ui/core/colors/blue";
+import indigo from "@material-ui/core/colors/indigo";
 
 let ogTheme = createMuiTheme({
   typography: {
@@ -81,10 +83,14 @@ let ogTheme = createMuiTheme({
     },
 
   },
-  // palette: {
-  //   primary: { main: '#FAFAFA' },
-  //   secondary: { main: '#2E7D32' }
-  // },
+  palette: {
+    primary: {
+      main: '#283593',
+    },
+    secondary: {
+      main: '#f4511e',
+    },
+  },
   // shape: {
   //   borderRadius: 0
   // },

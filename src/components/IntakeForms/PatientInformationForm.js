@@ -10,6 +10,8 @@ import FormInstruction from "./FormFields/FormInstruction";
 import SubmitButton from "./FormFields/SubmitButton";
 import MedicalBenefitsReleaseCheckbox from "./FormFields/MedicalBenefitsReleaseCheckbox";
 import {API_URL} from "../../constants";
+import YesNoField from "./FormFields/YesNoField";
+import Typography from "@material-ui/core/Typography";
 
 const axios = require('axios');
 
@@ -63,22 +65,26 @@ function PatientInformationForm(props) {
           <Field label="First Name"
                  name="primaryInsuredFirstName"
                  form={form}
+                 required
           />
 
           <Field label="Last Name"
                  name="primaryInsuredLastName"
                  form={form}
+                 required
           />
 
           <DateField label="Date of Birth"
                      name="primaryInsuredDOB"
                      form={form}
+                     required
           />
 
           <RadioControl options={["Male", "Female", "Other"]}
-                        label="Gender"
+                        label="Primary insured individual's gender"
                         name="primaryInsuredGender"
                         form={form}
+                        required
           />
         </Box>
       )
@@ -195,61 +201,87 @@ function PatientInformationForm(props) {
         </FormSection>
 
         <FormSection label="Insurance Information">
-          <Field label="Insurance Company"
-                 name="insuranceCompany"
-                 width={300}
-                 form={form}
+
+          <Box pb={2}>
+            <Typography>
+              If you need help determining your insurance coverage or information, you can call the number on the back of your insurance card or contact our office and we'll be happy to help.
+            </Typography>
+          </Box>
+
+          <YesNoField label="Do you have vision insurance?"
+                      name="hasVisionInsurance"
+                      form={form}
+                      required
           />
 
-          <FormInstruction>Address of insurance company:</FormInstruction>
+          {state.hasVisionInsurance && (
+            <Box>
+              <Field label="Insurance Company"
+                     name="insuranceCompany"
+                     width={300}
+                     form={form}
+                     required
+              />
 
-          <Field label="Street Address"
-                 name="insuranceCompanyStreetAddress"
-                 width={250}
-                 form={form}
-          />
+              <FormInstruction>Address of insurance company:</FormInstruction>
 
-          <Field label="City"
-                 name="insuranceCompanyCity"
-                 form={form}
-          />
+              <Field label="Street Address"
+                     name="insuranceCompanyStreetAddress"
+                     width={250}
+                     form={form}
+                     required
+              />
 
-          <Field label="State"
-                 name="insuranceCompanyState"
-                 width={60}
-                 form={form}
-          />
+              <Field label="City"
+                     name="insuranceCompanyCity"
+                     form={form}
+                     required
+              />
 
-          <Field label="Zip"
-                 name="insuranceCompanyZip"
-                 width={90}
-                 form={form}
-          />
+              <Field label="State"
+                     name="insuranceCompanyState"
+                     width={60}
+                     form={form}
+                     required
+              />
 
-          <RadioControl label="Patient's relationship to insured individual"
-                        name="relationshipToInsured"
-                        options={["Self", "Spouse", "Child", "Other"]}
-                        form={form}
-          />
+              <Field label="Zip"
+                     name="insuranceCompanyZip"
+                     width={90}
+                     form={form}
+                     required
+              />
 
-          {insuredFields}
+              <RadioControl label="Patient's relationship to insured individual"
+                            name="relationshipToInsured"
+                            options={["Self", "Spouse", "Child", "Other"]}
+                            form={form}
+                            required
+              />
 
-          <Field label="Insurance ID Number"
-                 name="InsuranceIdNumber"
-                 form={form}
-                 width={180}
-          />
+              {insuredFields}
 
-          <Field label="Group Number"
-                 name="insuranceGroupNumber"
-                 form={form}
-                 width={100} />
+              <Field label="Insurance ID Number"
+                     name="InsuranceIdNumber"
+                     form={form}
+                     width={180}
+                     required
+              />
 
-          <Field label="Insured Individual's Employer"
-                 name="insuredEmployer"
-                 form={form}
-                 width={250}
-          />
+              <Field label="Group Number"
+                     name="insuranceGroupNumber"
+                     form={form}
+                     width={100}
+              />
+
+              <Field label="Insured Individual's Employer"
+                     name="insuredEmployer"
+                     form={form}
+                     width={250}
+                     required
+              />
+            </Box>
+          )}
 
           <MedicalBenefitsReleaseCheckbox form={form} />
         </FormSection>
