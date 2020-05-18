@@ -54,21 +54,14 @@ function FormsLandingPage(props) {
         />
 
 
-        {(hasAppt === false) && (
-          <YesNoField label="Would you like to request an appointment?"
-                      form={{
-                        onChange: (event) => setAppointmentRequest(event.target.value),
-                        valid: true
-                      }}
-          />
-        )}
+
 
         {(appointmentRequest === false) && (
           null
         )}
       </FormSection>
 
-      {(((hasAppt === true) && (office !== null)) || (hasAppt === false)) && (
+      {((hasAppt !== null) && (office !== null)) && (
         <Button variant="contained"
                 color="primary"
                 onClick={handleSubmit}
@@ -82,3 +75,12 @@ function FormsLandingPage(props) {
 }
 
 export default FormsLandingPage;
+
+        // {(hasAppt === false) && (
+        //   <YesNoField label="Would you like to request an appointment?"
+        //               form={{
+        //                 onChange: (event) => setAppointmentRequest(event.target.value),
+        //                 valid: true
+        //               }}
+        //   />
+        // )}
