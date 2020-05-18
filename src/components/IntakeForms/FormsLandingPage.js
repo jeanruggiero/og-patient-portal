@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import RadioControl from "./FormFields/RadioControl";
 import FormDescription from "./FormDescription";
 import Button from "@material-ui/core/Button";
+import FormSection from "./FormSection";
 
 function FormsLandingPage(props) {
 
@@ -33,37 +34,39 @@ function FormsLandingPage(props) {
         </Typography>
       </Box>
 
-      <RadioControl label="Which office are you planning to visit?"
-                    options={["Saratoga Vision Center", "Westside Family Vision Center"]}
-                    form={{
-                      onChange: (event) => setOffice(event.target.value),
-                      valid: true
-                    }}
+      <FormSection>
+        <RadioControl label="Which office are you planning to visit?"
+                      options={["Saratoga Vision Center", "Westside Family Vision Center"]}
+                      form={{
+                        onChange: (event) => setOffice(event.target.value),
+                        valid: true
+                      }}
 
-                    required
-      />
-
-      <YesNoField label="Do you have an appointment?"
-                  form={{
-                    onChange: (event) => setHasAppt(event.target.value),
-                    valid: true
-                  }}
-                  required
-      />
-
-
-      {(hasAppt === false) && (
-        <YesNoField label="Would you like to request an appointment?"
-                    form={{
-                      onChange: (event) => setAppointmentRequest(event.target.value),
-                      valid: true
-                    }}
+                      required
         />
-      )}
 
-      {(appointmentRequest === false) && (
-        null
-      )}
+        <YesNoField label="Do you have an appointment?"
+                    form={{
+                      onChange: (event) => setHasAppt(event.target.value),
+                      valid: true
+                    }}
+                    required
+        />
+
+
+        {(hasAppt === false) && (
+          <YesNoField label="Would you like to request an appointment?"
+                      form={{
+                        onChange: (event) => setAppointmentRequest(event.target.value),
+                        valid: true
+                      }}
+          />
+        )}
+
+        {(appointmentRequest === false) && (
+          null
+        )}
+      </FormSection>
 
       {(((hasAppt === true) && (office !== null)) || (hasAppt === false)) && (
         <Button variant="contained"

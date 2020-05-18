@@ -32,8 +32,6 @@ function LandingPageCard(props) {
             onMouseOver={onMouseOver}
             onMouseOut={onMouseOut}
             elevation={height}
-            maxWidth={300}
-
        >
         <CardActionArea component={Link} to={props.destination}>
           <CardContent>

@@ -9,11 +9,11 @@ import Banner from "./components/Banner";
 import ogTheme from "./styles";
 import FormPanel from "./components/IntakeForms/FormPanel";
 import LandingPage from "./components/LandingPage/LandingPage";
-import AppointmentRequest from "./components/AppointmentRequest/AppointmentRequest";
 import ErrorPage from "./components/ErrorPage";
 import {Box} from "@material-ui/core";
 import Contact from "./components/Contact/Contact";
 import GetStarted from "./components/GetStarted/GetStarted";
+import AppointmentRequestPanel from "./components/AppointmentRequest/AppointmentRequestPanel";
 
 function App() {
 
@@ -26,7 +26,7 @@ function App() {
           <Switch>
             <Route path="/" component={LandingPage} exact/>
             <Route path="/forms" component={FormPanel}/>
-            <Route path="/request-appointment" component={AppointmentRequest}/>
+            <Route path="/request-appointment" component={AppointmentRequestPanel}/>
             <Route path="/contact" component={Contact} />
             <Route path="/get-started" component={GetStarted} />
             <Route component={ErrorPage}/>

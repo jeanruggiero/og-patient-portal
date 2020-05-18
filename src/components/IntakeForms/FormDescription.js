@@ -11,7 +11,7 @@ function FormDescription(props) {
   return (
     <Box mb={4}>
       <Typography>
-        If you have questions, please contact {props.office} at {phoneNumber}.
+        If you have any questions, please contact {props.office} at {phoneNumber}.
       </Typography>
     </Box>
   )
