@@ -35,7 +35,13 @@ function AppointmentRequest(props) {
       return;
     }
 
-    axios.post(API_URL + "appointment_request/", state)
+    const now = new Date();
+    const d = now.getFullYear() + '-' + (now.getMonth() < 9 ? '0' : '') + (now.getMonth() + 1) +
+      '-' + (now.getDate() < 10 ? '0' : '') + now.getDate();
+
+    const data = {...state, dateSubmitted: d};
+
+    axios.post(API_URL + "appointment_request/", data)
       .then((response) => {
           console.log(response);
           props.onSubmit();

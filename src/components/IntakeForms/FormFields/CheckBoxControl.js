@@ -32,7 +32,6 @@ function CheckBoxControl (props) {
 
   const handleChange = (event) => {
 
-    console.log("handling checkbox change");
     setState({...state, [event.target.value]: event.target.checked});
 
     let value = [];
