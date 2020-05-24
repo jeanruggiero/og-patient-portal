@@ -1,3 +1,8 @@
+
+
+
+
+
 import React, {useState} from "react";
 import {Box} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -5,6 +10,9 @@ import FormSection from "../IntakeForms/FormSection";
 import YesNoField from "../IntakeForms/FormFields/YesNoField";
 import SubmitButton from "../IntakeForms/FormFields/SubmitButton";
 import FormInstruction from "../IntakeForms/FormFields/FormInstruction";
+import {API_URL} from "../../constants";
+
+const axios = require('axios');
 
 function CovidScreening(props) {
 
@@ -25,20 +33,11 @@ function CovidScreening(props) {
       return;
     }
 
-    console.log(state);
-
-    for (let [key, val] of Object.entries(state)) {
-      console.log(key);
-      console.log(state[key]);
-      if (state[key]) {
-        console.log("one is true");
-
-        props.onSubmit(true);
-        return;
-      }
-    }
-
-    props.onSubmit(false);
+    axios.put(API_URL + "intake/" + props.formId + "/", state)
+      .then(function (response) {
+        console.log(response);
+        props.onSubmit();
+      });
   };
 
   const form = {
@@ -61,25 +60,25 @@ function CovidScreening(props) {
       <form>
         <FormSection label="COVID-19 Screening">
           <YesNoField label="Are currently experiencing a cough, fever, or any other viral symptoms?"
-                      name="symptoms"
+                      name="covidSymptoms"
                       required
                       form={form}
           />
 
           <YesNoField label="Have you been in physical contact with anyone showing a cough, fever, or other viral symptoms in the past two weeks?"
-                      name="contactSymptoms"
+                      name="covidContactSymptoms"
                       required
                       form={form}
           />
 
           <YesNoField label="Have you traveled outside of Santa Clara County in the past two weeks?"
-                      name="traveled"
+                      name="covidTraveled"
                       required
                       form={form}
           />
 
           <YesNoField label="Have you been in contact with someone who has traveled outside of Santa Clara County in the past two weeks?"
-                      name="contactTraveled"
+                      name="covidContactTraveled"
                       required
                       form={form}
           />
@@ -100,4 +99,3 @@ function CovidScreening(props) {
 }
 
 export default CovidScreening;
-

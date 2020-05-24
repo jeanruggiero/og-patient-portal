@@ -10,6 +10,7 @@ import ErrorPage from "../ErrorPage";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import FormsLandingPage from "./FormsLandingPage";
 import LandingPage from "../LandingPage/LandingPage";
+import CovidScreening from "./CovidScreening";
 
 
 const axios = require('axios');
@@ -38,9 +39,13 @@ function FormPanel() {
     }).then (function (response) {
       console.log(response);
       setFormId(response.data);
-      setCurrentForm("hipaa");
+      setCurrentForm("covid");
     });
 
+  };
+
+  const onCovidScreeningSubmit = () => {
+    setCurrentForm("hipaa")
   };
 
   const onHipaaSubmit = () => {
@@ -68,6 +73,12 @@ function FormPanel() {
     case "identifyingInfo":
       form = <IntakeFormIdentifyingInfo onSubmit={onIdentifyingInfoSubmit}
                                         office={office}
+      />;
+      break;
+    case "covid":
+      form = <CovidScreening formId={formId}
+                             onSubmit={onCovidScreeningSubmit}
+                             office={office}
       />;
       break;
     case "hipaa":
