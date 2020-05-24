@@ -20,6 +20,8 @@ function IntakeFormIdentifyingInfo(props) {
   const [state, setState] = useState({});
   const [formValid, setFormValid] = useState(true);
 
+  console.log(state);
+
   const handleSubmit = (event) => {
 
     event.preventDefault();

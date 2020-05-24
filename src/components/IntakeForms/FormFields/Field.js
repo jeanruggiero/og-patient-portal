@@ -19,14 +19,8 @@ function Field(props) {
 
     setValue(event.target.value);
 
-    // if (props.form && props.form.onChange) {
-    //   props.form.onChange({target: {name: props.name, value: event.target.value}});
-    // }
-  };
-
-  const handleBlur = () => {
     if (props.form && props.form.onChange) {
-      props.form.onChange({target: {name: props.name, value: value}});
+      props.form.onChange({target: {name: props.name, value: event.target.value}});
     }
   };
 
@@ -48,7 +42,6 @@ function Field(props) {
             shrink: true,
         }}
         onChange={handleChange}
-        onBlur={handleBlur}
         style={style}
         error={error}
         //helperText={error ? "This field is required" : null}

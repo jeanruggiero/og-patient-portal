@@ -18,11 +18,8 @@ function DateField(props) {
   }
 
   const handleDateChange = (date) => {
+    console.log('date changed');
     setSelectedDate(date);
-  };
-
-  const handleAccept = (date) => {
-
     const d = date.getFullYear() + '-' + (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1) +
       '-' + (date.getDate() < 10 ? '0' : '') + date.getDate();
 
@@ -30,6 +27,14 @@ function DateField(props) {
       props.form.onChange({target: {name: props.name, value: d}});
     }
   };
+
+  const handleAccept = (date) => {
+
+    console.log('date accepted');
+
+
+  };
+
 
   if (error) {
     return (
