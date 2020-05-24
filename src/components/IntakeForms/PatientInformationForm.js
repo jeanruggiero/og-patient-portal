@@ -87,7 +87,48 @@ function PatientInformationForm(props) {
                         required
           />
         </Box>
-      )
+      );
+  }
+
+  let secondaryInsuredFields = null;
+
+  switch (state.secondaryRelationshipToInsured) {
+    case undefined:
+    case null:
+    case "Self":
+      break;
+    default:
+      secondaryInsuredFields = (
+        <Box>
+
+          <FormInstruction>Insured individual's information:</FormInstruction>
+
+          <Field label="First Name"
+                 name="secondaryInsuredFirstName"
+                 form={form}
+                 required
+          />
+
+          <Field label="Last Name"
+                 name="secondaryInsuredLastName"
+                 form={form}
+                 required
+          />
+
+          <DateField label="Date of Birth"
+                     name="secondaryInsuredDOB"
+                     form={form}
+                     required
+          />
+
+          <RadioControl options={["Male", "Female", "Other"]}
+                        label="Insured individual's gender"
+                        name="secondaryInsuredGender"
+                        form={form}
+                        required
+          />
+        </Box>
+      );
   }
 
   return (
@@ -280,11 +321,89 @@ function PatientInformationForm(props) {
                      width={250}
                      required
               />
+
+              <YesNoField label="Would you like to add secondary insurance information?"
+                          name="secondaryInsurance"
+                          form={form}
+                          width={250}
+              />
             </Box>
           )}
-
-          <MedicalBenefitsReleaseCheckbox form={form} />
         </FormSection>
+
+
+          {state.secondaryInsurance && (
+            <FormSection label="Secondary Insurance Information">
+              <Field label="Insurance Company"
+                     name="secondaryInsuranceCompany"
+                     width={300}
+                     form={form}
+                     required
+              />
+
+              <FormInstruction>Address of seconadry insurance company:</FormInstruction>
+
+              <Field label="Street Address"
+                     name="secondaryInsuranceCompanyStreetAddress"
+                     width={250}
+                     form={form}
+                     required
+              />
+
+              <Field label="City"
+                     name="secondaryInsuranceCompanyCity"
+                     form={form}
+                     required
+              />
+
+              <Field label="State"
+                     name="secondaryInsuranceCompanyState"
+                     width={60}
+                     form={form}
+                     required
+              />
+
+              <Field label="Zip"
+                     name="secondaryInsuranceCompanyZip"
+                     width={90}
+                     form={form}
+                     required
+              />
+
+              <RadioControl label="Patient's relationship to insured individual"
+                            name="secondaryRelationshipToInsured"
+                            options={["Self", "Spouse", "Child", "Other"]}
+                            form={form}
+                            required
+              />
+
+              {secondaryInsuredFields}
+
+              <Field label="Insurance ID Number"
+                     name="secondaryInsuranceIdNumber"
+                     form={form}
+                     width={180}
+                     required
+              />
+
+              <Field label="Group Number"
+                     name="secondaryInsuranceGroupNumber"
+                     form={form}
+                     width={100}
+              />
+
+              <Field label="Insured Individual's Employer"
+                     name="secondaryInsuredEmployer"
+                     form={form}
+                     width={250}
+                     required
+              />
+            </FormSection>
+          )}
+
+          <FormSection>
+            <MedicalBenefitsReleaseCheckbox form={form} />
+          </FormSection>
 
         <SubmitButton onClick={handleSubmit}/>
 
