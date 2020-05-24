@@ -18,20 +18,16 @@ function DateField(props) {
   }
 
   const handleDateChange = (date) => {
-    console.log('date changed');
     setSelectedDate(date);
-    const d = date.getFullYear() + '-' + (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1) +
-      '-' + (date.getDate() < 10 ? '0' : '') + date.getDate();
 
-    if (props.form && props.form.onChange) {
-      props.form.onChange({target: {name: props.name, value: d}});
+    if (date instanceof Date && !isNaN(date)) {
+      const d = date.getFullYear() + '-' + (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1) +
+        '-' + (date.getDate() < 10 ? '0' : '') + date.getDate();
+
+      if (props.form && props.form.onChange) {
+        props.form.onChange({target: {name: props.name, value: d}});
+      }
     }
-  };
-
-  const handleAccept = (date) => {
-
-    console.log('date accepted');
-
 
   };
 
@@ -47,7 +43,6 @@ function DateField(props) {
                 format="MM/dd/yyyy"
                 value={selectedDate}
                 onChange={handleDateChange}
-                onAccept={handleAccept}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -76,7 +71,6 @@ function DateField(props) {
               format="MM/dd/yyyy"
               value={selectedDate}
               onChange={handleDateChange}
-              onAccept={handleAccept}
               InputLabelProps={{
                 shrink: true,
               }}
