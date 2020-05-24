@@ -298,21 +298,21 @@ function MedicalInformationForm(props) {
       <Field label="Hours/Day"
              name="contactsHoursPerDay"
              form={form}
-             width={80}
+             width={100}
              required
       />
 
       <Field label="Days/Week"
              name="contactsDaysPerWeek"
              form={form}
-             width={80}
+             width={100}
              required
       />
 
       <Field label="Today (hrs)"
              name="todayWearingTime"
              form={form}
-             width={80}
+             width={100}
              required
       />
 
