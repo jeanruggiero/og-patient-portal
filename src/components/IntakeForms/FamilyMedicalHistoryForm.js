@@ -47,7 +47,8 @@ function FamilyMedicalHistoryForm(props) {
     axios.put(API_URL + "intake/" + props.formId + "/",
       {
         familyMedicalHistory: state,
-        dateSubmitted: d
+        dateSubmitted: d,
+        office: props.office
       },
       {
         xsrfHeaderName: 'X-CSRFToken',
