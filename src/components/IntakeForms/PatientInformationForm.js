@@ -75,7 +75,7 @@ function PatientInformationForm(props) {
           />
 
           <DateField label="Date of Birth"
-                     name="primaryInsuredDOB"
+                     name="primaryInsuredDob"
                      form={form}
                      required
           />
@@ -116,7 +116,7 @@ function PatientInformationForm(props) {
           />
 
           <DateField label="Date of Birth"
-                     name="secondaryInsuredDOB"
+                     name="secondaryInsuredDob"
                      form={form}
                      required
           />
