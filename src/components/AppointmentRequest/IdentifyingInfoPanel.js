@@ -43,7 +43,7 @@ function IdentifyingInfoPanel(props) {
                  required/>
 
           <Field label="MI"
-                 name="MI"
+                 name="mi"
                  form={form}
                  width={45}/>
 

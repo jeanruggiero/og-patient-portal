@@ -31,7 +31,7 @@ function HipaaForm(props) {
 
 
     axios.put(API_URL + "intake/" + props.formId + "/", {
-        HipaaAcknowledgement: true
+        hipaaAcknowledgement: true
       },
       {
         xsrfHeaderName: 'X-CSRFToken',

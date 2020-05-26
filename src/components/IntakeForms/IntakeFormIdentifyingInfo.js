@@ -67,7 +67,7 @@ function IntakeFormIdentifyingInfo(props) {
                    required/>
 
             <Field label="MI"
-                   name="MI"
+                   name="mi"
                    form={form}
                    width={45}/>
 
@@ -77,7 +77,7 @@ function IntakeFormIdentifyingInfo(props) {
                    required/>
 
             <DateField label="Date of Birth"
-                       name="DOB"
+                       name="dob"
                        form={form}
                        disableFuture
                        views={["year", "month", "date"]}

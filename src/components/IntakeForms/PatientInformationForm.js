@@ -303,7 +303,7 @@ function PatientInformationForm(props) {
               {insuredFields}
 
               <Field label="Insurance ID Number"
-                     name="InsuranceIdNumber"
+                     name="insuranceIdNumber"
                      form={form}
                      width={180}
                      required
