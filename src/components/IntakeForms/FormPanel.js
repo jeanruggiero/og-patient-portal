@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import IntakeFormIdentifyingInfo from "./IntakeFormIdentifyingInfo";
 import HipaaForm from "./HipaaForm";
 import PatientInformationForm from "./PatientInformationForm";
@@ -7,7 +7,7 @@ import MedicalInformationForm from "./MedicalInformationForm";
 import FamilyMedicalHistoryForm from "./FamilyMedicalHistoryForm";
 import { API_URL } from "../../constants";
 import ErrorPage from "../ErrorPage";
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {BrowserRouter, Switch, Route, Prompt } from "react-router-dom";
 import FormsLandingPage from "./FormsLandingPage";
 import LandingPage from "../LandingPage/LandingPage";
 import CovidScreening from "./CovidScreening";
@@ -17,11 +17,29 @@ const axios = require('axios');
 
 function FormPanel() {
 
+  // Show a confirmation dialog if the user attempts to leave the page while filling out a form
+  useEffect(() => {
+
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = '';
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  });
+
+
+
+
   const [office, setOffice] = useState();
   //const [appointmentRequest, setAppointmentRequest] = useState();
   const [patientId, setPatientId] = useState();
   const [formId, setFormId] = useState();
   const [currentForm, setCurrentForm] = useState("landingPage");
+
+  const formIsHalfFilledOut = () => true;
 
   const onLandingPageSubmit = (office) => {
     setOffice(office);
@@ -115,6 +133,10 @@ function FormPanel() {
 
   return (
     <Box>
+      <Prompt
+        when={() => true}
+        message="Your data will be lost if you leave. Continue?"
+      />
       {form}
     </Box>
   )

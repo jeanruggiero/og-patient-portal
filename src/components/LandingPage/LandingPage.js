@@ -32,10 +32,6 @@ function LandingPage() {
 
 
       <Box pt={2} display="flex" flexDirection="row" flexWrap="wrap">
-        <LandingPageCard title="Get Started"
-                         description="Not sure where to start? Click here and we'll walk you through the scheduling and intake process."
-                         destination="/get-started"
-        />
 
         <LandingPageCard title="Intake Forms"
                          description="Fill out your intake forms before arriving at the office to help us comply with social distancing regulations."
