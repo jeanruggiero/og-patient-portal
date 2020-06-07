@@ -406,7 +406,7 @@ function PatientInformationForm(props) {
             <MedicalBenefitsReleaseCheckbox form={form} />
           </FormSection>
 
-        <SubmitButton onClick={handleSubmit}/>
+        <SubmitButton onClick={handleSubmit} form={form} />
 
       </form>
     </Box>
