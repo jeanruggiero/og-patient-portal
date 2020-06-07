@@ -588,9 +588,19 @@ function MedicalInformationForm(props) {
                    width={200}
             />
 
+            <Field label="Dosage"
+                   name="dosage"
+                   width={100}
+            />
+
+            <Field label="Frequency"
+                   name="frequency"
+                   width={100}
+            />
+
             <Field label="Reason for Taking"
                    name="reason"
-                   width={400}
+                   width={250}
             />
           </ListControl>
 

@@ -51,12 +51,17 @@ function ListControl(props) {
   // Inject some props into child fields
   for (let i = 0; i < fieldCount; i++) {
     if (isIterable(props.children)) {
-      for (const child of props.children) {
-        fields.push(React.cloneElement(child, {
-            form: {onChange: (event) => handleChange(event, i)},
+      fields.push(
+        <Box>
+          {
+            props.children.map((child, index) => (
+              React.cloneElement(child, {
+              form: {onChange: (event) => handleChange(event, i)},
+            })))
           }
-        ));
-      }
+        </Box>
+      );
+
     } else {
       fields.push(React.cloneElement(props.children, {
           form: {onChange: (event) => handleChange(event, i)},
