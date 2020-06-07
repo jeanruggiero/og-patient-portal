@@ -16,6 +16,7 @@ import CheckBoxControl from "./FormFields/CheckBoxControl";
 import Typography from "@material-ui/core/Typography";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import {API_URL} from "../../constants";
+import DateFieldMonthYear from "./FormFields/DateFieldMonthYear";
 
 
 const axios = require('axios');
@@ -485,19 +486,19 @@ function MedicalInformationForm(props) {
 
         <FormSection label="General Health Information">
 
-          <DateField label="Date of Last Health Exam"
+          <DateFieldMonthYear label="Date of Last Health Exam"
                      name="dateLastHealthExam"
                      disableFuture
                      form={form}
           />
 
-          <DateField label="Date of Last Eye Exam"
+          <DateFieldMonthYear label="Date of Last Eye Exam"
                      name="dateLastEyeExam"
                      disableFuture
                      form={form}
           />
 
-          <DateField label="Date of Last Dilation"
+          <DateFieldMonthYear label="Date of Last Dilation"
                      name="dateLastDilation"
                      disableFuture
                      form={form}
