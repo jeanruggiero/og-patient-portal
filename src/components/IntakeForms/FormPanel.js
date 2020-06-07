@@ -80,6 +80,7 @@ function FormPanel() {
 
   const onFamilyHistorySubmit = () => {
     setCurrentForm("success");
+    //window.removeEventListener('beforeunload')
   };
 
   let form = null;
@@ -134,7 +135,7 @@ function FormPanel() {
   return (
     <Box>
       <Prompt
-        when={() => true}
+        when={currentForm !== "success"}
         message="Your data will be lost if you leave. Continue?"
       />
       {form}
