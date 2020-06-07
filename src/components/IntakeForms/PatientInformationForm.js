@@ -249,13 +249,14 @@ function PatientInformationForm(props) {
             </Typography>
           </Box>
 
-          <YesNoField label="Do you have vision insurance?"
-                      name="hasVisionInsurance"
-                      form={form}
-                      required
+          <RadioControl label="Do you have vision insurance?"
+                        name="hasVisionInsurance"
+                        options={["Yes", "No", "I don't know my insurance information"]}
+                        form={form}
+                        required
           />
 
-          {state.hasVisionInsurance && (
+          {state.hasVisionInsurance === "Yes" && (
             <Box>
               <Field label="Insurance Company"
                      name="insuranceCompany"
