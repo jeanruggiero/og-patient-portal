@@ -57,6 +57,23 @@ function ContactCard(props) {
               </Typography>
             </Grid>
           </Grid>
+
+          <Grid container direction="row" alignItems="center">
+
+            <Grid item>
+              <Box p={0.2}>
+                <Icon color="primary" fontSize="small">email</Icon>
+              </Box>
+            </Grid>
+
+            <Grid item>
+              <Typography gutterBottom>
+                <Link href={"mailto:" + props.email} target="_blank" rel="noopener">
+                  {props.email}
+                </Link>
+              </Typography>
+            </Grid>
+          </Grid>
         </CardContent>
 
       </Card>

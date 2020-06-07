@@ -24,6 +24,7 @@ function Contact() {
                      locationLink="https://g.page/westsidefamilyvisioncenter?share"
                      address="1817 Hamilton Avenue, San Jose, CA 95125"
                      phoneNumber="(408) 264-1555"
+                     email="info@optometricgroup.com"
         />
 
         <ContactCard location="Saratoga Vision Center"
@@ -31,6 +32,7 @@ function Contact() {
                      locationLink="https://g.page/saratoga-vision-center?share"
                      address="18816 Cox Avenue, Saratoga, CA 95070"
                      phoneNumber="(408) 370-7303"
+                     email="info@optometricgroup.com"
         />
       </Box>
 
