@@ -184,7 +184,7 @@ function MedicalInformationForm(props) {
 
       <SelectGroup label="Which type(s) of glasses do you own? (Select all that apply)"
                    name="glassesTypes"
-                   options={["Single Vision", "Bifocals", "Trifocals", "Back-up Glasses", "Safety Glasses", "Sports Glasses", "Progressive", "Computer"]}
+                   options={["Single Vision", "Bifocals", "Trifocals", "Back-up Glasses", "Safety Glasses", "Sports Glasses", "Progressive", "Computer", "Sunglasses"]}
                    form={form}
       />
 
