@@ -71,18 +71,6 @@ function CovidScreening(props) {
                       form={form}
           />
 
-          <YesNoField label="Have you traveled outside of Santa Clara County in the past two weeks?"
-                      name="covidTraveled"
-                      required
-                      form={form}
-          />
-
-          <YesNoField label="Have you been in contact with someone who has traveled outside of Santa Clara County in the past two weeks?"
-                      name="covidContactTraveled"
-                      required
-                      form={form}
-          />
-
         </FormSection>
 
         <Box display="flex" justifyContent="flex-end">

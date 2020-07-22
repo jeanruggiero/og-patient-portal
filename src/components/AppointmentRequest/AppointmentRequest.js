@@ -151,7 +151,7 @@ function AppointmentRequest(props) {
           )}
         </FormSection>
 
-        <SubmitButton onClick={handleSubmit} />
+        <SubmitButton onClick={handleSubmit} form={form} />
       </form>
 
     </Box>
