@@ -9,8 +9,6 @@ function AppointmentRequestPanel() {
 
   const [status, setStatus] = useState(null);
 
-  console.log(status);
-
   const handleCovidScreeningSubmit = (status) => {
     setStatus(status);
   };

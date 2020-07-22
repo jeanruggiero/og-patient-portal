@@ -11,6 +11,7 @@ import {BrowserRouter, Switch, Route, Prompt } from "react-router-dom";
 import FormsLandingPage from "./FormsLandingPage";
 import LandingPage from "../LandingPage/LandingPage";
 import CovidScreening from "./CovidScreening";
+import IntakeFormSubmitSuccess from "./IntakeFormSubmitSuccess";
 
 
 const axios = require('axios');
@@ -125,12 +126,13 @@ function FormPanel() {
       />;
       break;
     case "success":
-      form = <h3>Submit successful!</h3>;
+      form = <IntakeFormSubmitSuccess />;
 
       break;
     default:
       form = <ErrorPage/>;
   }
+
 
   return (
     <Box>

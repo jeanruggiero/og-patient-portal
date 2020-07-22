@@ -3,13 +3,12 @@ import {Box} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
-import { Link as RouterLink } from 'react-router-dom';
 
-function AppointmentRequestSuccess() {
+function IntakeFormSubmitSuccess() {
   return (
     <Box>
       <Box mb={2}>
+
         <Grid container direction="row" alignItems="center">
           <Grid item>
             <Box p={2}>
@@ -19,9 +18,8 @@ function AppointmentRequestSuccess() {
 
           <Grid item>
             <Box maxWidth={300}>
-
               <Typography variant="h3">
-                Appointment Request Successful!
+                Intake Forms Submitted Successfully!
               </Typography>
             </Box>
           </Grid>
@@ -29,17 +27,10 @@ function AppointmentRequestSuccess() {
       </Box>
 
       <Box pl={3}>
-        <Typography gutterBottom>
-          We have received your request. We'll be in touch with you shortly to schedule your appointment.
-        </Typography>
-
         <Typography>
-          Here's what to expect when you come in for your appointment:
+          What to expect:
 
           <ul>
-            <li>
-              To minimize contact, please fill out your <Link underline="None" component={RouterLink} to="/forms">Intake Forms</Link> online prior to arriving at our office.
-            </li>
             <li>
               Please bring any glasses and contact lenses (packaging) you're using with you to your appointment.
             </li>
@@ -50,9 +41,7 @@ function AppointmentRequestSuccess() {
         </Typography>
       </Box>
     </Box>
-
-
   )
 }
 
-export default AppointmentRequestSuccess;
+export default IntakeFormSubmitSuccess;
